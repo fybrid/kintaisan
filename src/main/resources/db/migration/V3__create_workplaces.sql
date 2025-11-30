@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS workplaces (
+    id BIGSERIAL PRIMARY KEY,
+    workplace_id INTEGER NOT NULL UNIQUE,
+    workplace_name VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
