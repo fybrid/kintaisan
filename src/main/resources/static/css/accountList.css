@@ -1,0 +1,13 @@
+.subheader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+
+}
+table{
+    width: 60%;
+    text-align: center;
+    border-collapse: collapse;
+    margin: 0 auto;
+}

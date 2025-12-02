@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>勤怠入力</title>
+  <!-- 外部CSS読み込み -->
+  <link rel="stylesheet" th:href="@{css/attendance_input.css}">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="attendance_input">勤怠入力</a></li>
+        <li><a href="attendance_status">勤怠状況</a></li>
+        <li><a href="tellandplace">連絡先・勤務地編集</a></li>
+        <li><a href="login">ログアウト</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <hr>
+
+  <main>
+    <p>2026年12月31日（木）</p>
+    <p>09 : 00 . 30</p>
+    <p>退勤中</p>
+
+    <form id="checkInForm">
+      <p>
+        <label for="workplace">勤務先：</label><br>
+        <select id="workplace" name="workplace">
+          <option value="">勤務地を選択</option>
+          <option value="本社">本社</option>
+          <option value="支社">支社</option>
+          <option value="自宅">自宅</option>
+        </select>
+      </p>
+
+      <p>
+        <input type="submit" value="出勤">
+      </p>
+    </form>
+  </main>
+
+  <!-- モーダル -->
+  <div id="modalOverlay"></div>
+  <div id="modal">
+    <p>Success</p>
+    <p>（出勤 / 退勤）しました。</p>
+    <p>この表示は3秒後に閉じられます。</p>
+  </div>
+
+  <!-- 外部JS読み込み -->
+  <script th:src="@{js/attendance_input.js}"></script>
+
+</body>
+</html>

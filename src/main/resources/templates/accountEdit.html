@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@1.0.0/output/moretoggles.min.css">
+    <title>アカウント編集</title>
+    <link rel="stylesheet" th:href="@{/css/accountEdit.css}">
+</head>
+<body>
+    <form action="/api/admin/users/update" method="post">
+        <input type="text" name="userid" id="userid" placeholder="ユーザーID">
+        <input type="text" name="name" id="name" placeholder="氏名">
+        <input type="text" name="place" id="place" placeholder="勤務先">
+        <input type="text" name="phone" id="phone" placeholder="電話番号">
+        <input type="text" name="department" id="department" placeholder="部署">
+        <div class="mt-square3d-matcha">
+            <input type="checkbox" name="admin" id="admin">
+            <label for="admin"></label>
+            管理者権限
+        </div>
+        <button type="button" id="passbtn">🔑</button>
+        <button type="submit">作成</button>
+    </form>
+    <script th:src="@{/js/accountEdit.js}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@1.0.0/output/moretoggles.min.css">
+    <title>アカウント作成</title>
+    <link rel="stylesheet" th:href="@{/css/accountCreate.css}">
+</head>
+<body>
+    <form action="/api/admin/users/create" method="post">
+        <input type="text" name="userid" id="userid" placeholder="ユーザーID">
+        <input type="text" name="name" id="name" placeholder="氏名">
+        <input type="text" name="place" id="place" placeholder="勤務先">
+        <input type="text" name="phone" id="phone" placeholder="電話番号">
+        <input type="text" name="department" id="department" placeholder="部署">
+        <div class="mt-square3d-matcha">
+            <input type="checkbox" name="admin" id="admin">
+            <label for="admin"></label>
+            管理者権限
+        </div>
+        <input type="password" name="password" id="password" placeholder="新しいパスワード">
+        <input type="password" name="check" id="check" placeholder="新しいパスワード（確認用）">
+        <button type="submit">作成</button>
+    </form>
+</body>
+
+</html>
