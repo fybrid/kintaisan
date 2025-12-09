@@ -1,30 +1,42 @@
 package com.kyosaka.kintaisan.entity;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
-@Data
 @Entity
 @Table(name = "attendance_records")
+@Data
 public class Attendance {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "record_id")
-    private int recordId;
-    @Column(name = "user_id")
+
+    @Column(name = "record_id", nullable = false, unique = true)
+    private Long recordId;
+
+    @Column(name = "user_id", nullable = false, length = 50)
     private String userId;
-    @Column(name = "work_date")
+
+    @Column(name = "work_date", nullable = false)//自動更新じゃないから他でやる
     private LocalDate workDate;
+    
     @Column(name = "clockin_time")
-    private LocalTime clockinTime;
+    private ZonedDateTime clockinTime;
+    
     @Column(name = "clockout_time")
-    private LocalTime clockoutTime;
-    @Column(name = "workplace_id")
-    private int workplaceId;
+    private ZonedDateTime clockoutTime;
+    
+    @Column(name = "workplace_id", nullable = false)
+    private Integer workplaceId;
+    
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private ZonedDateTime updatedAt;
+    
+    @PrePersist
+    @PreUpdate//作成時と更新時にupdatedAtを書き換える
+    protected void onUpdate() {
+        updatedAt = ZonedDateTime.now();
+    }
 }
