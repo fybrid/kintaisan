@@ -7,13 +7,13 @@
 <body>
 
     <h1>勤怠さん</h1>
-    <form action="attendance_input" method="get"><!-- 実装するときはpost-->
+    <form action="/api/signin" method="post">
         <p>
-          <input type="text" id="User-id" name="User-id" placeholder="User ID" required>
+          <input type="text" id="username" name="username" placeholder="ユーザーID/ユーザー名" required>
         </p>
     
         <p>
-          <input type="password" id="password" name="password" placeholder="Pass word" required>
+          <input type="password" id="password" name="password" placeholder="パスワード" required>
         </p>
     
         <p>
