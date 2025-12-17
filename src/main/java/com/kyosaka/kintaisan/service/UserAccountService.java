@@ -1,5 +1,55 @@
 package com.kyosaka.kintaisan.service;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.kyosaka.kintaisan.entity.UserAccount;
+import com.kyosaka.kintaisan.repository.UserAccountRepository;
+
+@Service
 public class UserAccountService {
-  
+
+  private static final Logger logger = LoggerFactory.getLogger(UserAccountService.class);
+
+  private final PasswordEncoder passwordEncoder;
+  private final UserAccountRepository userAccountRepository;
+
+  public UserAccountService(PasswordEncoder passwordEncoder, UserAccountRepository userAccountRepository) {
+    this.passwordEncoder = passwordEncoder;
+    this.userAccountRepository = userAccountRepository;
+  }
+
+  public enum SigninStatus {
+    SUCCESS,
+    BAD_REQUEST,
+    USER_NOT_FOUND,
+    PASSWORD_MISMATCH
+  }
+
+  public record SigninResult(SigninStatus status) {}
+
+  public SigninResult signin(String username, String password) {
+    if (username == null || password == null || username.isBlank() || password.isBlank()) {
+      return new SigninResult(SigninStatus.BAD_REQUEST);
+    }
+
+    Optional<UserAccount> userOpt = userAccountRepository.findByUserIdOrName(username, username);
+    if (userOpt.isEmpty()) {
+      logger.info("ログイン失敗: ユーザーが見つかりません username={}", username);
+      return new SigninResult(SigninStatus.USER_NOT_FOUND);
+    }
+
+    UserAccount user = userOpt.get();
+    if (passwordEncoder.matches(password, user.getPassword())) {
+      logger.info("ログイン成功 username={}", username);
+      return new SigninResult(SigninStatus.SUCCESS);
+    }
+
+    logger.info("ログイン失敗: パスワード不一致 username={}", username);
+    return new SigninResult(SigninStatus.PASSWORD_MISMATCH);
+  }
 }

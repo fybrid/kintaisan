@@ -1,57 +1,40 @@
 package com.kyosaka.kintaisan.controller;
 
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.kyosaka.kintaisan.entity.UserAccount;
-import com.kyosaka.kintaisan.repository.UserAccountRepository;
+import com.kyosaka.kintaisan.service.UserAccountService;
+import com.kyosaka.kintaisan.service.UserAccountService.SigninStatus;
 
-@RestController
+
+@Controller
 @RequestMapping("/api")
 public class AuthController {
 
-  private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+  private final UserAccountService userAccountService;
 
-  private final PasswordEncoder passwordEncoder;
-  private final UserAccountRepository userAccountRepository;
-
-  public AuthController(PasswordEncoder passwordEncoder, UserAccountRepository userAccountRepository) {
-    this.passwordEncoder = passwordEncoder;
-    this.userAccountRepository = userAccountRepository;
+  public AuthController(UserAccountService userAccountService) {
+    this.userAccountService = userAccountService;
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<String> signin(@RequestParam String username, @RequestParam String password) {
+  public String signin(@RequestParam String username, @RequestParam String password, Model model) {
 
-    // 入力された値が空の場合
-    if (username.isBlank() || password.isBlank()) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
+    UserAccountService.SigninResult result = userAccountService.signin(username, password);
+    if (result.status() == SigninStatus.SUCCESS) {
+      return "redirect:/";
     }
 
-    Optional<UserAccount> userOpt = userAccountRepository.findByUserIdOrName(username, username);
-    if (userOpt.isEmpty()) {
-      logger.info("ログイン失敗: ユーザーが見つかりません username={}", username);
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("error");
+    if (result.status() == SigninStatus.BAD_REQUEST) {
+      model.addAttribute("errorMessage", "ユーザーID/ユーザー名とパスワードを入力してください。");
+      return "login";
     }
 
-    UserAccount user = userOpt.get();
-    if (passwordEncoder.matches(password, user.getPassword())) {
-      logger.info("ログイン成功 username={}", username);
-      return ResponseEntity.ok("success");
-    }
-
-    logger.info("ログイン失敗: パスワード不一致 username={}", username);
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("error");
+    model.addAttribute("errorMessage", "ユーザーID/ユーザー名、またはパスワードが違います。");
+    return "login";
   }
-
 
 }
