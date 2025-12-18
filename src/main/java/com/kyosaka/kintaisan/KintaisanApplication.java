@@ -2,19 +2,20 @@ package com.kyosaka.kintaisan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @SpringBootApplication
-@RestController
+@Controller
 public class KintaisanApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KintaisanApplication.class, args);
 	}
 
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String index() {
-        return "Hello, World!";
-    }
+		return "index";
+	}
 }
