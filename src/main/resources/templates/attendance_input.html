@@ -22,23 +22,31 @@
   <hr>
 
   <main>
-    <p>2026年12月31日（木）</p>
+    <p id="date"></p>
     <p>09 : 00 . 30</p>
-    <p>退勤中</p>
+    <p th:if="${status == 1}" style="color: tomato;">
+      退勤中
+    </p>
+    <p th:if="${status == 0}" style="color: royalblue;">
+      出勤中  
+    </p>
+    <p th:if="${status == 2}" style="color: seagreen;">
+      本日は既に勤務済みです。<br>
+      お疲れ様でした。
+    </p>
 
-    <form id="checkInForm">
-      <p>
-        <label for="workplace">勤務先：</label><br>
-        <select id="workplace" name="workplace">
-          <option value="">勤務地を選択</option>
-          <option value="本社">本社</option>
-          <option value="支社">支社</option>
-          <option value="自宅">自宅</option>
-        </select>
-      </p>
-
-      <p>
+    <form id="checkInForm" th:action="@{/stamp}" method="post">
+      <!-- true:出勤処理、false:退勤処理 -->
+      <input type="hidden" name="status" th:value="${status}">
+      <select th:if="${status != 2}"  name="workplaceId" id="workplaceId">
+        <option value="">選択してください</option>
+        <option th:each="workplace : ${selectAll}" th:text="${workplace.workplaceName}" th:value="${workplace.workplaceId}" th:selected="${workplace.workplaceId == workplaceId}"></option>
+      </select>
+      <p th:if="${status == 1}">
         <input type="submit" value="出勤">
+      </p>
+      <p th:if="${status == 0}">
+        <input type="submit" value="退勤">
       </p>
     </form>
   </main>
@@ -47,11 +55,11 @@
   <div id="modalOverlay"></div>
   <div id="modal">
     <p>Success</p>
-    <p>（出勤 / 退勤）しました。</p>
-    <p>この表示は3秒後に閉じられます。</p>
+    <p th:if="${status == 1}">出勤しました。</p>
+    <p th:if="${status == 0}">退勤しました。</p>
   </div>
 
-  <div th:text="${test}"></div>
+
 
   <!-- 外部JS読み込み -->
   <script th:src="@{js/attendance_input.js}"></script>
