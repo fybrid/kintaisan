@@ -30,26 +30,26 @@ public class UserAccountService {
     PASSWORD_MISMATCH
   }
 
-  public record SigninResult(SigninStatus status) {}
+  public record SigninResult(SigninStatus status, String userId, Short roleId) {}
 
   public SigninResult signin(String username, String password) {
     if (username == null || password == null || username.isBlank() || password.isBlank()) {
-      return new SigninResult(SigninStatus.BAD_REQUEST);
+      return new SigninResult(SigninStatus.BAD_REQUEST, null, null);
     }
 
     Optional<UserAccount> userOpt = userAccountRepository.findByUserIdOrName(username, username);
     if (userOpt.isEmpty()) {
       logger.info("ログイン失敗: ユーザーが見つかりません username={}", username);
-      return new SigninResult(SigninStatus.USER_NOT_FOUND);
+      return new SigninResult(SigninStatus.USER_NOT_FOUND, null, null);
     }
 
     UserAccount user = userOpt.get();
     if (passwordEncoder.matches(password, user.getPassword())) {
       logger.info("ログイン成功 username={}", username);
-      return new SigninResult(SigninStatus.SUCCESS);
+      return new SigninResult(SigninStatus.SUCCESS, user.getUserId(), user.getRoleId());
     }
 
     logger.info("ログイン失敗: パスワード不一致 username={}", username);
-    return new SigninResult(SigninStatus.PASSWORD_MISMATCH);
+    return new SigninResult(SigninStatus.PASSWORD_MISMATCH, null, null);
   }
 }

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kyosaka.kintaisan.service.UserAccountService;
 import com.kyosaka.kintaisan.service.UserAccountService.SigninStatus;
 
+import jakarta.servlet.http.HttpSession;
+
+
 
 @Controller
 @RequestMapping("/api")
@@ -21,10 +24,12 @@ public class AuthController {
   }
 
   @PostMapping("/signin")
-  public String signin(@RequestParam String username, @RequestParam String password, Model model) {
+  public String signin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
 
     UserAccountService.SigninResult result = userAccountService.signin(username, password);
     if (result.status() == SigninStatus.SUCCESS) {
+      session.setAttribute("userId", result.userId());
+      session.setAttribute("roleId", result.roleId());
       return "redirect:/";
     }
 
@@ -36,5 +41,12 @@ public class AuthController {
     model.addAttribute("errorMessage", "ユーザーID/ユーザー名、またはパスワードが違います。");
     return "login";
   }
+
+  @PostMapping("/signout")
+  public String signout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/login";
+  }
+  
 
 }
