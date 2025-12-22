@@ -27,6 +27,7 @@ public class AuthController {
     this.userAccountService = userAccountService;
   }
 
+  // ログイン
   @PostMapping("/signin")
   public String signin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
 
@@ -47,6 +48,7 @@ public class AuthController {
     return "login";
   }
 
+  // ログアウト
   @PostMapping("/signout")
   public String signout(HttpSession session) {
     logger.info("ログアウト sessionId={}", session.getId());
