@@ -21,7 +21,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             auth ->
                 auth
-                    .requestMatchers("/", "/tologin", "/api/signin", "/error")
+                    .requestMatchers("/", "/tologin", "/api/signin", "/api/signout", "/error")
                     .permitAll()
                     .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico")
                     .permitAll()
