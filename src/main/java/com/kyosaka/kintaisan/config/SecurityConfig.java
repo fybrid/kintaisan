@@ -21,13 +21,13 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             auth ->
                 auth
-                    .requestMatchers("/", "/tologin", "/api/signin", "/api/signout", "/error")
+                    .requestMatchers("/", "/login", "/api/signin", "/api/signout", "/error")
                     .permitAll()
                     .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
-        .formLogin(form -> form.loginPage("/tologin").permitAll())
+        .formLogin(form -> form.loginPage("/login").permitAll())
         .logout(logout -> logout.permitAll());
 
     return http.build();

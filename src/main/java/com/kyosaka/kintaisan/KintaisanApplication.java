@@ -20,7 +20,7 @@ public class KintaisanApplication {
 		return "index";
   }
 
-	@GetMapping("/tologin")
+	@GetMapping("/login")
   public String showLoginPage() {
     return "login";
   }
