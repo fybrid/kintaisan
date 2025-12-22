@@ -9,8 +9,9 @@
 </head>
 <body>
   <h1>Welcome to Kintaisan</h1>
-  <form th:action="@{/api/signout}" method="post">
-    <input type="submit" value="サインアウト">
+  <!-- TODO:削除予定 セッションにuserIdが入っている時だけ、ログアウトボタンを表示する -->
+  <form th:action="@{/api/signout}" method="post" th:if="${session.userId != null}">
+    <input type="submit" value="ログアウト">
   </form>
 </body>
 </html>
