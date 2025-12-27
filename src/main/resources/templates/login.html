@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
@@ -7,13 +7,22 @@
 <body>
 
     <h1>勤怠さん</h1>
-    <form action="attendance_input" method="get"><!-- 実装するときはpost-->
+    <form id="login-form" th:action="@{/api/signin}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <p>
-          <input type="text" id="User-id" name="User-id" placeholder="User ID" required>
+          <input type="text" id="username" name="username" placeholder="ユーザーID/ユーザー名" required>
         </p>
     
         <p>
-          <input type="password" id="password" name="password" placeholder="Pass word" required>
+          <input type="password" id="password" name="password" placeholder="パスワード" required>
+        </p>
+
+        <p
+          id="login-error"
+          aria-live="polite"
+          style="color:#c00;"
+          th:if="${errorMessage}"
+          th:text="${errorMessage}">
         </p>
     
         <p>
