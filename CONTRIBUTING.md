@@ -8,14 +8,18 @@
 ## セットアップ
 [クイックスタート](./README.md#クイックスタート)
 
-### ローカルPostgresQLの場合の詳細手順
+### PostgresQL（ローカル）の場合の詳細手順
 1. リポジトリをクローン
-2. PostgreSQL の準備
+2. 以下のコマンドを実行（環境変数ファイルを作成）
+```shell
+$ cp .env.example .env
+```
+3. PostgreSQL の準備
    - `psql --version` でローカルにインストールされているか確認
    - pgAdmin.appなどを使ってDBを新規作成し、名前を `kintaisan`に設定
-3. 設定ファイルの更新
-   - [application.properties](./src/main/resources/application.properties) のパスワードの値をpostgresユーザーのパスワードに変更する
-4. 起動確認
+4. 設定ファイルの更新
+   - `.env`内の`DB_USERNAME`と`DB_PASSWORD`の値を設定
+5. 起動確認
    - [KintaisanApplication.java](./src/main/java/com/kyosaka/kintaisan/KintaisanApplication.java) のメイン関数を実行し、エラーがでなければOK
 
 ## 開発フロー

@@ -10,9 +10,13 @@
 - PostgreSQL (DB)
 
 ## クイックスタート
-1. PostgresQLで新しくDBを作成
-2. [設定ファイル](./src/main/resources/application.properties)のDB パスワードを更新
-3. [メイン関数](./src/main/java/com/kyosaka/kintaisan/KintaisanApplication.java)を実行
+1. 以下のコマンドを実行
+```shell
+$ cp .env.example .env
+```
+2. PostgresQLで新しくDBを作成
+3. `.env`内の`DB_USERNAME`と`DB_PASSWORD`の値を設定
+4. [メイン関数](./src/main/java/com/kyosaka/kintaisan/KintaisanApplication.java)を実行
 
 ## ドキュメント
 - [git branch rule](./docs/branch.md)
