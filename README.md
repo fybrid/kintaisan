@@ -10,21 +10,15 @@
 - PostgreSQL (DB)
 
 ## クイックスタート
-
-### DBの接続（ローカルPosrgreSQL）
-
-1. PostgreSQLがローカルにインストールされているか確認
-
+1. 以下のコマンドを実行
 ```shell
-$ psql --version
+$ cp .env.example .env
 ```
-2. pgAdmin.appを開く
-
-3. 左のアイコン右クリックなどで、新しくDBを作成し、DB名を「kintaisan」にする
-
-4. [設定ファイル](./src/main/resources/application.properties)のパスワードの値をpostgresユーザーのパスワードに変更する
-
-5. [メイン関数](./src/main/java/com/kyosaka/kintaisan/KintaisanApplication.java)をRunさせてエラーが出なければOK
+2. PostgresQLで新しくDBを作成
+3. `.env`内の`DB_USERNAME`と`DB_PASSWORD`の値を設定
+4. [メイン関数](./src/main/java/com/kyosaka/kintaisan/KintaisanApplication.java)を実行
 
 ## ドキュメント
 - [git branch rule](./docs/branch.md)
+- [commit prefix](./docs/commit.md)
+- [contributing](./CONTRIBUTING.md)
