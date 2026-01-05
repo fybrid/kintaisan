@@ -2,6 +2,8 @@ package com.kyosaka.kintaisan.service;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ public class UserAccountService {
 
   private final PasswordEncoder passwordEncoder;
   private final UserAccountRepository userAccountRepository;
+  private static final Logger logger = LoggerFactory.getLogger(UserAccountService.class);
 
   public UserAccountService(PasswordEncoder passwordEncoder, UserAccountRepository userAccountRepository) {
     this.passwordEncoder = passwordEncoder;
@@ -45,4 +48,19 @@ public class UserAccountService {
 
     return new SigninResult(SigninStatus.PASSWORD_MISMATCH, null, null);
   }
+
+  public boolean createUser(){
+    UserAccount user = new UserAccount();
+    user.setUserId("example");
+    user.setPassword(passwordEncoder.encode("pw"));
+    user.setName("example");
+    user.setRoleId((short)1);
+    user.setIsActive(true);
+
+    userAccountRepository.save(user);
+
+    logger.info("createUser success");
+    return true;
+  }
+
 }
