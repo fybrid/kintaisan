@@ -1,8 +1,10 @@
 package com.kyosaka.kintaisan.controller;
 
+import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
 import com.kyosaka.kintaisan.service.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -17,8 +19,8 @@ public class AdminCreateController {
     }
 
   @PostMapping("/users/create")
-  public String createUser() {
-    userAccountService.createUser();
+  public String createUser(@ModelAttribute UserAccountCreateRequest form) {
+    userAccountService.createUser(form);
     return "redirect:/";
   }
 }

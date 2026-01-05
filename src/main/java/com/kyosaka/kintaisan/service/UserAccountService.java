@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
 import com.kyosaka.kintaisan.entity.UserAccount;
 import com.kyosaka.kintaisan.repository.UserAccountRepository;
 
@@ -49,16 +50,18 @@ public class UserAccountService {
     return new SigninResult(SigninStatus.PASSWORD_MISMATCH, null, null);
   }
 
-  public boolean createUser(){
+  public boolean createUser(UserAccountCreateRequest form){
+    // TODO: 例外エラー処理
     UserAccount user = new UserAccount();
-    user.setUserId("example");
-    user.setPassword(passwordEncoder.encode("pw"));
-    user.setName("example");
-    user.setRoleId((short)1);
+    user.setUserId(form.getUserId());
+    user.setPassword(passwordEncoder.encode(form.getPassword()));
+    user.setName(form.getName());
+    user.setRoleId(form.getRoleId());
     user.setIsActive(true);
 
     userAccountRepository.save(user);
 
+    // TODO: 削除予定 ログ
     logger.info("createUser success");
     return true;
   }
