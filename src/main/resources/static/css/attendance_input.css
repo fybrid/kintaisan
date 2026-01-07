@@ -1,29 +1,46 @@
-/* モーダル非表示設定 */
-#modalOverlay {
-  display: none;
+/* 帯状ヘッダー */
+.top-bar {
+  background-color: #4CAF50;
+  padding: 10px 20px;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1000;
+  right: 0;
+  z-index: 100;
 }
 
-#modal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  text-align: center;
-  z-index: 1001;
+/* ナビゲーションリンク横並び */
+.top-nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }
 
-#modal p {
-  margin: 10px 0;
+/* リンクの見た目 */
+.top-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+/* ホバー時の演出 */
+.top-nav a:hover {
+  background-color: #388E3C;
+}
+
+/* ログアウトだけ赤 */
+.top-nav .logout {
+  background-color: #e53935;
+}
+
+.top-nav .logout:hover {
+  background-color: #c62828;
+}
+
+/* ヘッダー分の余白 */
+body {
+  margin-top: 60px;
 }
