@@ -12,7 +12,7 @@ public class UserAccountCreateRequest {
     // UserAccount
     private String password;
     private String name;
-    private Short roleId;
+    private Boolean admin;
 
     // UserProfile
     private Integer departmentId;

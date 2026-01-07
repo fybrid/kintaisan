@@ -54,12 +54,20 @@ public class UserAccountService {
   }
 
   public boolean createUser(UserAccountCreateRequest form){
-    // TODO: 例外エラー処理
+
+    short roleId;
+    if(Boolean.TRUE.equals(form.getAdmin())){
+      roleId = 2;
+    } else {
+      roleId = 1;
+    }
+
+    // TODO: 例外エラー処理 userIdが存在していた場合
     UserAccount user = new UserAccount();
     user.setUserId(form.getUserId());
     user.setPassword(passwordEncoder.encode(form.getPassword()));
     user.setName(form.getName());
-    user.setRoleId(form.getRoleId());
+    user.setRoleId(roleId);
     user.setIsActive(true);
 
     userAccountRepository.save(user);
