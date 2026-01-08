@@ -21,8 +21,10 @@ public class AdminCreateController {
   @PostMapping("/users/create")
   public String createUser(@ModelAttribute UserAccountCreateRequest form) {
     if (Boolean.TRUE.equals(userAccountService.createUser(form))) {
+      // 管理者ページindex（ユーザー表）にリダイレクト
       return "redirect:/";
     } else {
+      // TODO: inputの内容を消さずにエラー表記させたい
       return "accountCreate";
     }
   }

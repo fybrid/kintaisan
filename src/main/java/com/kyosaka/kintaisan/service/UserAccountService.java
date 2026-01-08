@@ -56,6 +56,7 @@ public class UserAccountService {
 
   public boolean createUser(UserAccountCreateRequest form){
 
+
     short roleId;
     if(Boolean.TRUE.equals(form.getAdmin())){
       roleId = 2;
@@ -63,29 +64,36 @@ public class UserAccountService {
       roleId = 1;
     }
 
+
+    // セッションのログインユーザroleId（2,3）を確認
     if (!Objects.equals(form.getPassword(), form.getCheck())) {
+
+      // TODO: 例外エラーメッセージ
       logger.warn("Password confirmation mismatch");
-      return false; // TODO: 例外エラーメッセージ
+      return false;
+
     } else {
-      // TODO: 例外エラー処理 userIdが存在していた場合
+
+      // TODO: 例外エラー処理・メッセージ 例：userIdが存在していた場合
       UserAccount user = new UserAccount();
       user.setUserId(form.getUserId());
       user.setPassword(passwordEncoder.encode(form.getPassword()));
       user.setName(form.getName());
       user.setRoleId(roleId);
       user.setIsActive(true);
-  
+
       userAccountRepository.save(user);
-  
+
+      // TODO: 例外エラー処理・メッセージ 例：それぞれの被ってはいけない項目の値が被っていた場合。
       UserProfile profile = new UserProfile();
       profile.setUserId(form.getUserId());
       profile.setEmail(form.getEmail());
       profile.setWorkplaceId(form.getWorkplaceId());
       profile.setDepartmentId(form.getDepartmentId());
       profile.setPhoneNumber(form.getPhoneNumber());
-  
+
       userProfileRepository.save(profile);
-  
+
       // TODO: 削除予定 ログ
       logger.info("Successfully created a user.");
       return true;

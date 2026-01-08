@@ -17,6 +17,7 @@ public class departmentInitializer implements CommandLineRunner{
 
   private final departmentsRepository departmentsRepository;
 
+  // TODO: SQLもしくはFlywayで直接データを入れる
   @Override
   public void run (String... args) {
     if (departmentsRepository.existsByDepartmentId(1)

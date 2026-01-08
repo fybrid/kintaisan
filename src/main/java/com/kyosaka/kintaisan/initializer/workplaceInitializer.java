@@ -17,6 +17,7 @@ public class workplaceInitializer implements CommandLineRunner {
 
   private final workplacesRepository workplacesRepository;
 
+  // TODO: SQLもしくはFlywayで直接データを入れる
   @Override
   public void run (String... args) {
     if (workplacesRepository.existsByWorkplaceId(1)
