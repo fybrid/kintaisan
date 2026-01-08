@@ -17,7 +17,7 @@
         <input type="text" name="phoneNumber" id="phone" placeholder="電話番号">
         <input type="text" name="email" id="email" placeholder="メールアドレス">
 
-        <div class="mt-square3d-matcha">
+        <div class="mt-square3d-matcha" th:if="${session.roleId != null and session.roleId == 3}">
             <input type="checkbox" name="admin" id="admin">
             <label for="admin"></label>
             管理者権限

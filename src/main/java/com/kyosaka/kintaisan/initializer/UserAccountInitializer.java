@@ -18,15 +18,15 @@ public class UserAccountInitializer implements CommandLineRunner{
 
   @Override
   public void run (String... args) {
-    if (userAccountRepository.existsByUserId("seeduser")) {
+    if (userAccountRepository.existsByUserId("superadmin")) {
       return;
     }
 
     UserAccount user = new UserAccount();
-    user.setUserId("seeduser");
+    user.setUserId("superadmin");
     user.setPassword(passwordEncoder.encode("password"));
-    user.setName("Seeduser");
-    user.setRoleId((short)1);
+    user.setName("SuperAdmin");
+    user.setRoleId((short)3);
     user.setIsActive(true);
 
     userAccountRepository.save(user);
