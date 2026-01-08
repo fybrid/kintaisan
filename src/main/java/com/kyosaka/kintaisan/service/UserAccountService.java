@@ -1,5 +1,6 @@
 package com.kyosaka.kintaisan.service;
 
+import java.util.Objects;
 import java.util.Optional;
 import com.kyosaka.kintaisan.repository.UserProfileRepository;
 import org.slf4j.Logger;
@@ -62,28 +63,34 @@ public class UserAccountService {
       roleId = 1;
     }
 
-    // TODO: 例外エラー処理 userIdが存在していた場合
-    UserAccount user = new UserAccount();
-    user.setUserId(form.getUserId());
-    user.setPassword(passwordEncoder.encode(form.getPassword()));
-    user.setName(form.getName());
-    user.setRoleId(roleId);
-    user.setIsActive(true);
+    if (!Objects.equals(form.getPassword(), form.getCheck())) {
+      logger.warn("Password confirmation mismatch");
+      return false; // TODO: 例外エラーメッセージ
+    } else {
+      // TODO: 例外エラー処理 userIdが存在していた場合
+      UserAccount user = new UserAccount();
+      user.setUserId(form.getUserId());
+      user.setPassword(passwordEncoder.encode(form.getPassword()));
+      user.setName(form.getName());
+      user.setRoleId(roleId);
+      user.setIsActive(true);
+  
+      userAccountRepository.save(user);
+  
+      UserProfile profile = new UserProfile();
+      profile.setUserId(form.getUserId());
+      profile.setEmail(form.getEmail());
+      profile.setWorkplaceId(form.getWorkplaceId());
+      profile.setDepartmentId(form.getDepartmentId());
+      profile.setPhoneNumber(form.getPhoneNumber());
+  
+      userProfileRepository.save(profile);
+  
+      // TODO: 削除予定 ログ
+      logger.info("Successfully created a user.");
+      return true;
+    }
 
-    userAccountRepository.save(user);
-
-    UserProfile profile = new UserProfile();
-    profile.setUserId(form.getUserId());
-    profile.setEmail(form.getEmail());
-    profile.setWorkplaceId(form.getWorkplaceId());
-    profile.setDepartmentId(form.getDepartmentId());
-    profile.setPhoneNumber(form.getPhoneNumber());
-
-    userProfileRepository.save(profile);
-
-    // TODO: 削除予定 ログ
-    logger.info("Successfully created a user.");
-    return true;
   }
 
 }

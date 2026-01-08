@@ -20,7 +20,10 @@ public class AdminCreateController {
 
   @PostMapping("/users/create")
   public String createUser(@ModelAttribute UserAccountCreateRequest form) {
-    userAccountService.createUser(form);
-    return "redirect:/";
+    if (Boolean.TRUE.equals(userAccountService.createUser(form))) {
+      return "redirect:/";
+    } else {
+      return "accountCreate";
+    }
   }
 }

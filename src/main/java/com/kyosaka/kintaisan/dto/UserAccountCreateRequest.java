@@ -11,6 +11,7 @@ public class UserAccountCreateRequest {
 
     // UserAccount
     private String password;
+    private String check;
     private String name;
     private Boolean admin;
 
