@@ -21,10 +21,10 @@ public class departments {
     private int id;
 
     @Column(name = "department_id", unique = true)
-    private Long departmentId;
+    private Integer departmentId;
 
     @Column(name = "department_name", unique = true, length = 20)
-    private Long departmentName;
+    private String departmentName;
 
     @Column(name = "created_at")
     private ZonedDateTime createdAt;

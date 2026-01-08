@@ -8,20 +8,25 @@
     <link rel="stylesheet" th:href="@{/css/accountCreate.css}">
 </head>
 <body>
-    <form action="/api/admin/users/create" method="post">
-        <input type="text" name="userid" id="userid" placeholder="ユーザーID">
-        <input type="text" name="name" id="name" placeholder="氏名">
-        <input type="text" name="place" id="place" placeholder="勤務先">
-        <input type="text" name="phone" id="phone" placeholder="電話番号">
-        <input type="text" name="department" id="department" placeholder="部署">
-        <div class="mt-square3d-matcha">
+    <form th:action="@{/admin/users/create}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="text" name="userId" id="userId" placeholder="ユーザーID（文字列）">
+        <input type="text" name="name" id="username" placeholder="氏名（文字列）">
+        <input type="text" name="workplaceId" id="place" placeholder="勤務先（1,2,3）">
+        <input type="text" name="departmentId" id="department" placeholder="部署（1,2,3）">
+        <input type="text" name="phoneNumber" id="phone" placeholder="電話番号(1以上から、整数8桁以内)">
+        <input type="text" name="email" id="email" placeholder="メールアドレス（文字列）">
+
+        <div class="mt-square3d-matcha" th:if="${session.roleId != null and session.roleId == 3}">
             <input type="checkbox" name="admin" id="admin">
             <label for="admin"></label>
             管理者権限
         </div>
+
+        <!-- <input type="text" name="roleId" id="roleid" placeholder="1,2"> -->
         <input type="password" name="password" id="password" placeholder="新しいパスワード">
         <input type="password" name="check" id="check" placeholder="新しいパスワード（確認用）">
-        <button type="submit">作成</button>
+        <input type="submit" value="作成">
     </form>
 </body>
 

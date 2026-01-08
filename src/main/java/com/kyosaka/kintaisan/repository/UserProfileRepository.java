@@ -1,5 +1,13 @@
 package com.kyosaka.kintaisan.repository;
 
-public class UserProfileRepository {
-  
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.kyosaka.kintaisan.entity.UserProfile;
+
+public interface UserProfileRepository extends JpaRepository<UserProfile, Integer>{
+
+  boolean existsByUserId(String userId);
+  Optional<UserProfile> findByUserId(String userId);
 }
