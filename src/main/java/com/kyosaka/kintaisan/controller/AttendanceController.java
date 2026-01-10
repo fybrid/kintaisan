@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.kyosaka.kintaisan.service.AttendanceService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -22,11 +25,17 @@ public class AttendanceController {
 
     // 勤怠入力画面に遷移するメソッド。勤怠状況と勤務先をthymeleafでHTMLに送る。
     @GetMapping("/attendance_input")
-    public String inputAttendance(Model model) {
-        
-        String userId = "imoto"; // ログイン機能できるまで仮置き
-        String username = "いもと"; // ログイン機能できるまで仮置き
-        model.addAttribute("name", username); // 勤怠入力時に表示したい
+    // sessionからuserIdを取得できるようになったら引数にHttpSession sessionを追加する
+    public String inputAttendance(Model model, HttpSession session) {
+        // String userId = "imoto"; // ログイン機能できるまで仮置き
+        Object userIdO = session.getAttribute("userId"); // ログイン機能できるまで仮置き
+        if (userIdO == null) {
+            return "redirect:/login";
+        }
+        String userId = (String) userIdO;
+        System.out.println("userId: " + userId);
+        // String username = (String) session.getAttribute("username"); // ログイン機能できるまで仮置き
+        model.addAttribute("name", "username"); // 勤怠入力時に表示したい
         
         // attendance_recordsからuseridの勤怠状況を取得
         // 1:出勤ボタン、0:退勤ボタン、2:退勤済みボタン
@@ -42,10 +51,15 @@ public class AttendanceController {
         return "attendance_input";
     }
     @PostMapping("/stamp")
-    public String stamp(@RequestParam(required = false) int workplaceId, Model model) {
+    public String stamp(@RequestParam(required = false) int workplaceId, Model model, HttpSession session) {
         // 取得したGetを表示
         // model.addAttribute("test", );
-        if (attendanceService.stamp("imoto", workplaceId)) {
+        Object userIdO = session.getAttribute("userId");
+        if (userIdO == null) {
+            return "redirect:/login";
+        }
+        String userId = (String) userIdO;
+        if (attendanceService.stamp(userId, workplaceId)) {
             System.out.println("出勤処理完了");
         } else {
             System.out.println("退勤処理完了");
