@@ -4,31 +4,33 @@
   <meta charset="UTF-8">
   <title>勤怠入力</title>
   <!-- 外部CSS読み込み -->
-  <link rel="stylesheet" th:href="@{css/attendance_input.css}">
+  <link rel="stylesheet" href="/css/stlye.css" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="/css/attendance_input.css" th:href="@{/css/attendance_input.css}">
 </head>
 <body>
 
-  <header>
-    <nav>
-      <ul>
-        <li><a href="attendance_input">勤怠入力</a></li>
-        <li><a href="attendance_status">勤怠状況</a></li>
-        <li><a href="tellandplace">連絡先・勤務地編集</a></li>
-        <li><a href="login">ログアウト</a></li>
-      </ul>
-    </nav>
-  </header>
+<header class="top-bar">
+  <nav class="top-nav">
+    <a href="attendance_input">勤怠入力</a>
+    <a href="attendance_status">勤怠状況</a>
+    <a href="tellandplace">連絡先・勤務地編集</a>
+    <a href="login" class="logout">ログアウト</a>
+  </nav>
+</header>
 
   <hr>
 
   <main>
-    <p>2026年12月31日（木）</p>
-    <p>09 : 00 . 30</p>
+    <div class="datetime" id="date"></div>
+    <div class="time">
+    <span id="clock-hours"></span><span id="clock-seconds"></span>
+    </div>
+   
     <p>退勤中</p>
 
     <form id="checkInForm">
       <p>
-        <label for="workplace">勤務先：</label><br>
+        <label for="workplace"></label><br>
         <select id="workplace" name="workplace">
           <option value="">勤務地を選択</option>
           <option value="本社">本社</option>
@@ -36,6 +38,8 @@
           <option value="自宅">自宅</option>
         </select>
       </p>
+
+      <p id="alertAreaSelect" style="color:red;"></p>
 
       <p>
         <input type="submit" value="出勤">
