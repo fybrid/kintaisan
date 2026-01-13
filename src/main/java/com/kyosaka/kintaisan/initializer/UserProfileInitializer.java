@@ -1,6 +1,7 @@
 package com.kyosaka.kintaisan.initializer;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.kyosaka.kintaisan.entity.UserProfile;
@@ -9,6 +10,7 @@ import com.kyosaka.kintaisan.repository.UserProfileRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
+@Order(2)
 @RequiredArgsConstructor
 public class UserProfileInitializer implements CommandLineRunner {
 

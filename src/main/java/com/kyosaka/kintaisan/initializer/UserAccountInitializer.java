@@ -1,6 +1,7 @@
 package com.kyosaka.kintaisan.initializer;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import com.kyosaka.kintaisan.repository.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
+@Order(1)
 @RequiredArgsConstructor
 public class UserAccountInitializer implements CommandLineRunner{
 

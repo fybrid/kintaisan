@@ -1,0 +1,17 @@
+-- 部署テーブル
+CREATE TABLE IF NOT EXISTS departments (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    department_id INTEGER NOT NULL UNIQUE,
+    department_name VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 勤務地テーブル
+CREATE TABLE IF NOT EXISTS workplaces (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    workplace_id INTEGER NOT NULL UNIQUE,
+    workplace_name VARCHAR(20) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
