@@ -21,10 +21,10 @@ public class workplaces {
     private int id;
 
     @Column(name = "workplace_id", unique = true)
-    private Long workplaceId;
+    private Integer workplaceId;
 
     @Column(name = "workplace_name", unique = true, length = 20)
-    private Long workplaceName;
+    private String workplaceName;
 
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
