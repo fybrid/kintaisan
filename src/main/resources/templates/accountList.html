@@ -45,23 +45,13 @@
                             <th>ユーザーID</th>
                             <th>氏名</th>
                             <th>部署</th>
-                            <th>権限</th>
                             <th>操作</th>
                         </tr>
-                        <tr>
+                        <tr th:each="account : ${accounts}">
                             <td><button class="delete">削除</button></td>
-                            <td>user001</td>
-                            <td>山田 太郎</td>
-                            <td>営業</td>
-                            <td>管理者</td>
-                            <td><a href="accountEdit"><button class="edit">編集</button></a></td>
-                        </tr>
-                        <tr>
-                            <td><button class="delete">削除</button></td>
-                            <td>user002</td>
-                            <td>鈴木 花子</td>
-                            <td>総務</td>
-                            <td>一般ユーザー</td>
+                            <td th:text="${account.userId}">user001</td>
+                            <td th:text="${account.name}">山田 太郎</td>
+                            <td th:text="${account.departmentName}">営業</td>
                             <td><a href="accountEdit"><button class="edit">編集</button></a></td>
                         </tr>
                     </tbody>
