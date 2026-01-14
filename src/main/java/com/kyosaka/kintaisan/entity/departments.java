@@ -20,16 +20,16 @@ public class departments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "department_id", unique = true)
+    @Column(name = "department_id", nullable = false, unique = true)
     private Integer departmentId;
 
-    @Column(name = "department_name", unique = true, length = 20)
+    @Column(name = "department_name", nullable = false, unique = true, length = 20)
     private String departmentName;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private ZonedDateTime updatedAt;
 
     @PrePersist//作成時にcreatedAt, updatedAtを登録する

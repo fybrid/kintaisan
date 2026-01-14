@@ -2,8 +2,8 @@
 CREATE TABLE IF NOT EXISTS user_accounts (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id VARCHAR(50) NOT NULL UNIQUE,
-    password CHAR(60) NOT NULL,
-    name VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(20) NOT NULL UNIQUE,
     role_id SMALLINT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     department_id INTEGER NOT NULL,
     workplace_id INTEGER NOT NULL,
     phone_number VARCHAR(20),
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT fk_profiles_account FOREIGN KEY (user_id) REFERENCES user_accounts (user_id) ON DELETE CASCADE,
@@ -31,12 +31,10 @@ CREATE TABLE IF NOT EXISTS attendance_records (
     record_id BIGINT NOT NULL UNIQUE,
     user_id VARCHAR(50) NOT NULL,
     work_date DATE NOT NULL,
-    clockin_time TIMESTAMPTZ,
+    clockin_time TIMESTAMPTZ NOT NULL,
     clockout_time TIMESTAMPTZ,
     workplace_id INTEGER NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT fk_attendance_account FOREIGN KEY (user_id) REFERENCES user_accounts (user_id),
     CONSTRAINT fk_attendance_workplace FOREIGN KEY (workplace_id) REFERENCES workplaces (workplace_id)
 );
-
-CREATE INDEX IF NOT EXISTS idx_attendance_user_date ON attendance_records (user_id, work_date);

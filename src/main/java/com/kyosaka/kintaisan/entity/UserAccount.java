@@ -23,22 +23,22 @@ public class UserAccount {
     @Column(name = "user_id", nullable = false, unique = true, length = 50)
     private String userId;
 
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @Column(name = "name", unique = true, length = 20, nullable = false)
+    @Column(name = "name", nullable = false, unique = true, length = 20)
     private String name;
 
-    @Column(name = "role_id")
+    @Column(name = "role_id", nullable = false)
     private short roleId;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private ZonedDateTime updatedAt;
 
     @PrePersist//作成時にcreatedAt, updatedAtを登録する

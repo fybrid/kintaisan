@@ -27,7 +27,7 @@ public class UserProfileInitializer implements CommandLineRunner {
     user.setDepartmentId(1);
     user.setEmail("admin@admin.com");
     user.setWorkplaceId(1);
-    user.setPhoneNumber(234567);
+    user.setPhoneNumber("09012345678");
 
     userProfileRepository.save(user);
   }
