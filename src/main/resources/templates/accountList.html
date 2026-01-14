@@ -4,48 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アカウント一覧</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/adminLayout.css}">
     <link rel="stylesheet" th:href="@{/css/accountList.css}">
 </head>
 <body>
-    <div class="subheader">
-        <button class="back"><a href="#">戻る</a></button>
-        <div class="wrap">
-            <label for="accountCreate">ユーザー追加</label>
-            <a href="accountCreate"><button id="accountCreate">+</button></a>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="sidebar-head">
+                <span class="sidebar-title">管理メニュー</span>
+                <span class="sidebar-sub">kintaisan</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item active" href="accountList">アカウント一覧</a>
+                <a class="nav-item" href="accountCreate">アカウント作成</a>
+                <a class="nav-item" href="/attendance_input">勤怠入力</a>
+                <a class="nav-item" href="/attendance_status">勤怠一覧</a>
+                <a class="nav-item" href="/">ホーム</a>
+            </nav>
+        </aside>
+        <div class="admin-content">
+            <div class="subheader">
+                <button class="back"><a href="#">戻る</a></button>
+                <div class="wrap">
+                    <label for="accountCreate">ユーザー追加</label>
+                    <a href="accountCreate"><button id="accountCreate">+</button></a>
+                </div>
+            </div>
+
+            <!-- このページは事前に/api/admin/users/allを経由して表示。 -->
+
+            <div class="main">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>削除</th>
+                            <th>ユーザーID</th>
+                            <th>氏名</th>
+                            <th>部署</th>
+                            <th>権限</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr>
+                            <td><button class="delete">削除</button></td>
+                            <td>user001</td>
+                            <td>山田 太郎</td>
+                            <td>営業</td>
+                            <td>管理者</td>
+                            <td><a href="accountEdit"><button class="edit">編集</button></a></td>
+                        </tr>
+                        <tr>
+                            <td><button class="delete">削除</button></td>
+                            <td>user002</td>
+                            <td>鈴木 花子</td>
+                            <td>総務</td>
+                            <td>一般ユーザー</td>
+                            <td><a href="accountEdit"><button class="edit">編集</button></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-
-    <!-- このページは事前に/api/admin/users/allを経由して表示。 -->
-
-    <div class="main">
-        <table border="1">
-            <tbody>
-                <tr>
-                    <th>削除</th>
-                    <th>ユーザーID</th>
-                    <th>氏名</th>
-                    <th>メールアドレス</th>
-                    <th>権限</th>
-                    <th>操作</th>
-                </tr>
-                <tr>
-                    <td><button class="delete">削除</button></td>
-                    <td>user001</td>
-                    <td>山田 太郎</td>
-                    <td>090-1234-5678</td>
-                    <td>管理者</td>
-                    <td><a href="accountEdit"><button class="edit">編集</button></a></td>
-                </tr>
-                <tr>
-                    <td><button class="delete">削除</button></td>
-                    <td>user002</td>
-                    <td>鈴木 花子</td>
-                    <td>080-2345-6789</td>
-                    <td>一般ユーザー</td>
-                    <td><a href="accountEdit"><button class="edit">編集</button></a></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script th:src="@{/js/accountList.js}"></script>
