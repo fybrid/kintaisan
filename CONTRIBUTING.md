@@ -43,5 +43,13 @@ $ cp .env.example .env
 3. レビュアーをアサインし、レビューを待つ
 4. OKが出たら`squash and merge`でマージする（コミット履歴が見やすくなる）
 
+## コマンドリスト
+
+### DBのレコード全削除
+
+```shell
+$ make flyway-clean CONFIRM = yes
+```
+
 ## テスト（編集中）
 - `./mvnw test`
