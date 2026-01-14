@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/login.css" th:href="@{/css/login.css}">
 </head>
 <body>
+    <div class="top-bar">
+     <nav class="top-nav login-nav">
+     <div class="dummy"></div>
+     </nav>
+    </div>
 
     <h1>勤怠さん</h1>
     <form id="login-form" th:action="@{/api/signin}" method="post">
