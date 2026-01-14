@@ -14,6 +14,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     Optional<Attendance> findByUserId(String userId);
     Optional<Attendance> findByWorkDate(LocalDate workDate);
     Optional<Attendance> findByClockinTime(LocalTime clockIn);
+    Optional<Attendance> findTopByUserIdOrderByWorkDateDesc(String userId);
 }
 
 
