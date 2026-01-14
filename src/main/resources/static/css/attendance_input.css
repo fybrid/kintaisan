@@ -1,4 +1,22 @@
+#clock-hours {
+    font-size: 48px;
+}
+
+#clock-seconds {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+select#workplace {
+  font-size: 18px;
+  padding: 8px 12px;
+  width: 200px;
+  height: 44px;
+}
+
+
 /* モーダル非表示設定 */
+
 #modalOverlay {
   display: none;
   position: fixed;

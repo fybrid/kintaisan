@@ -23,4 +23,9 @@ public class KintaisanApplication {
   public String showLoginPage() {
     return "login";
   }
+
+	@GetMapping("/create")
+	public String showCreatePage(){
+		return "accountCreate";
+	}
 }

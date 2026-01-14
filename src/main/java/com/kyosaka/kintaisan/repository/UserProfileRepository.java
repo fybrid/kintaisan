@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.kyosaka.kintaisan.entity.UserProfile;
 
 @Repository
-public interface UserProfileRepository extends JpaRepository<UserProfile, Integer> {
-    Optional<UserProfile> findByUserId(String userId);
+public interface UserProfileRepository extends JpaRepository<UserProfile, Integer>{
+
+  boolean existsByUserId(String userId);
+  Optional<UserProfile> findByUserId(String userId);
 }

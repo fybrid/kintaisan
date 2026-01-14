@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.kyosaka.kintaisan.entity.workplaces;
 
 @Repository
-public interface WorkplacesRepository extends JpaRepository<workplaces, Integer> {
+public interface workplacesRepository extends JpaRepository<workplaces, Integer>{
+
+  boolean existsByWorkplaceId(Integer workplaceId);
     
 }
