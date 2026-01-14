@@ -90,7 +90,7 @@ public class UserAccountService {
       profile.setEmail(form.getEmail());
       profile.setWorkplaceId(form.getWorkplaceId());
       profile.setDepartmentId(form.getDepartmentId());
-      profile.setPhoneNumber(form.getPhoneNumber().toString());
+      profile.setPhoneNumber(form.getPhoneNumber());
 
       userProfileRepository.save(profile);
 
