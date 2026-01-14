@@ -1,0 +1,30 @@
+/* ダミー要素で高さだけ */
+.login-nav .dummy {
+  height: 39px; 
+  width: 1px;   
+  opacity: 0;   
+}
+
+body {
+  margin-top: 136px;
+}
+
+#login-form input[type="text"] {
+  font-size: 18px;
+  padding: 8px 12px;
+  width: 200px;
+  height: 44px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+#login-form input[type="password"] {
+  font-size: 18px;
+  padding: 8px 12px;
+  width: 200px;
+  height: 44px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}

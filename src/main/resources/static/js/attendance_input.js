@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 日付表示 
+  // 2025年12月31日（木）のように表示したい
+  const date = new Date();
+  const formatter = new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "short" // "木"みたいに1文字にしてくれてうれしい
+  }).format(date).replace("(", "（").replace(")", "）");
+  document.getElementById("date").textContent = formatter;
+
   const form = document.getElementById("checkInForm");
   const modalOverlay = document.getElementById("modalOverlay");
   const modal = document.getElementById("modal");
@@ -45,7 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       modalOverlay.style.display = "none";
       modal.style.display = "none";
-      window.location.href = "/attendance_status";
+      // window.location.href = "/attendance_status";
+      form.submit();
     }, 3000);
   });
 
