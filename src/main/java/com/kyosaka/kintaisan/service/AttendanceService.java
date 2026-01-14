@@ -13,17 +13,17 @@ import com.kyosaka.kintaisan.entity.UserProfile;
 import com.kyosaka.kintaisan.entity.workplaces;
 import com.kyosaka.kintaisan.repository.AttendanceRepository;
 import com.kyosaka.kintaisan.repository.UserProfileRepository;
-import com.kyosaka.kintaisan.repository.WorkplacesRepository;
+import com.kyosaka.kintaisan.repository.workplacesRepository;
 
 @Service
 public class AttendanceService {
     // AttendanceRepositoryのインスタンス
     private final AttendanceRepository attendanceRepository;
-    private final WorkplacesRepository workplacesRepository;
+    private final workplacesRepository workplacesRepository;
     private final UserProfileRepository userProfileRepository;
 
     // コンストラクタ
-    public AttendanceService(AttendanceRepository attendanceRepository, WorkplacesRepository workplacesRepository, UserProfileRepository userProfileRepository) {
+    public AttendanceService(AttendanceRepository attendanceRepository, workplacesRepository workplacesRepository, UserProfileRepository userProfileRepository) {
         this.attendanceRepository = attendanceRepository;
         this.workplacesRepository = workplacesRepository;
         this.userProfileRepository = userProfileRepository;
