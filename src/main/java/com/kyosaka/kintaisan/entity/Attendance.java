@@ -21,19 +21,19 @@ public class Attendance {
 
     @Column(name = "work_date", nullable = false)//自動更新じゃないから他でやる
     private LocalDate workDate;
-    
-    @Column(name = "clockin_time")
+
+    @Column(name = "clockin_time", nullable = false)
     private ZonedDateTime clockinTime;
-    
+
     @Column(name = "clockout_time")
     private ZonedDateTime clockoutTime;
-    
+
     @Column(name = "workplace_id", nullable = false)
     private Integer workplaceId;
-    
-    @Column(name = "updated_at")
+
+    @Column(name = "updated_at", nullable = false)
     private ZonedDateTime updatedAt;
-    
+
     @PrePersist
     @PreUpdate//作成時と更新時にupdatedAtを書き換える
     protected void onUpdate() {

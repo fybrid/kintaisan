@@ -20,16 +20,16 @@ public class workplaces {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "workplace_id", unique = true)
+    @Column(name = "workplace_id", nullable = false, unique = true)
     private Integer workplaceId;
 
-    @Column(name = "workplace_name", unique = true, length = 20)
+    @Column(name = "workplace_name", nullable = false, unique = true, length = 20)
     private String workplaceName;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private ZonedDateTime updatedAt;
 
     @PrePersist//作成時にcreatedAt, updatedAtを登録する

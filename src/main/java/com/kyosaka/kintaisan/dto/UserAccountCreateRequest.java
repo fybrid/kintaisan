@@ -18,6 +18,6 @@ public class UserAccountCreateRequest {
     // UserProfile
     private Integer departmentId;
     private Integer workplaceId;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String email;
 }
