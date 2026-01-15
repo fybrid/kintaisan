@@ -61,7 +61,7 @@
     <p th:if="${status == 0}">退勤しました。</p>
   </div>
 
-
+  <p><span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span></p>
 
   <!-- 外部JS読み込み -->
   <script th:src="@{js/attendance_input.js}"></script>
