@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>勤怠状況一覧</title>
-  <link rel="stylesheet" th:href="@{css/attendance_status.css}">
+  <!-- 外部CSS読み込み -->
+  <link rel="stylesheet" href="/css/stlye.css" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="/css/attendance_status.css" th:href="@{/css/attendance_status.css}">
 </head>
 <body>
 
-  <!-- ヘッダー -->
   <header>
     <nav>
       <ul>
-        <li><a href="attendance_input">勤怠入力</a></li>
-        <li><a href="attendance_status">勤怠状況</a></li>
-        <li><a href="tellandplace">連絡先・勤務地編集</a></li>
-        <li><a href="login">ログアウト</a></li>
+        <li><a th:href="@{/attendance_input}">勤怠入力</a></li>
+        <li><a th:href="@{/attendance_status}">勤怠状況</a></li>
+        <li><a th:href="@{/tellandplace}">連絡先・勤務地編集</a></li>
+        <li><a th:href="@{/login}">ログアウト</a></li>
       </ul>
     </nav>
   </header>
@@ -22,11 +23,12 @@
   <hr>
 
   <main>
+    <p>
+      <span th:text="${formattedDate}">何月何日（曜日）</span>
+      <span th:text="${departmentName}">何々部署</span>
+      勤怠状況
+    </p>
 
-    <!-- 日付・部署など（モックなのでテキスト固定） -->
-    <p>何月何日（曜日）　何々部署　勤怠状況</p>
-
-    <!-- 表 -->
     <table id="attendance_table">
       <thead>
       <tr>
@@ -37,30 +39,32 @@
       </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="name" data-phone="090-1234-5678" data-email="nishimura@example.com">西村 啓一朗</td>
-          <td>自宅</td>
-          <td>08:46</td>
-          <td>--:--</td>
-        </tr>
-
-        <tr>
-          <td class="name" data-phone="xxx-xxxx-xxxx" data-email="AAAA@example.com">A</td>
-          <td>本社</td>
-          <td>09:00</td>
-          <td>18:00</td>
+        <!-- データない時のメッセージ -->
+        <tr th:if="${#lists.isEmpty(attendanceList)}">
+          <td colspan="4" style="text-align: center;">表示する勤怠データがありません</td>
         </tr>
         
-        <tr>
-          <td class="name" data-phone="xxx-xxxx-xxxx" data-email="BBBBB@example.com">B</td>
-          <td>本社</td>
-          <td>08:50</td>
-          <td>17:50</td>
+        <!-- データがある分だけ繰り返し表示 -->
+        <tr th:each="attendance : ${attendanceList}">
+          <td class="name"
+              th:data-phone="${attendance.phoneNumber}"
+              th:data-email="${attendance.email}"
+              th:text="${attendance.userName}">
+            西村 啓一朗
+          </td>
+          <td th:text="${attendance.workplaceName != null ? attendance.workplaceName : '未登録'}">
+            自宅
+          </td>
+          <td th:text="${attendance.clockinTime != null ? #temporals.format(attendance.clockinTime, 'HH:mm') : '--:--'}">
+            08:46
+          </td>
+          <td th:text="${attendance.clockoutTime != null ? #temporals.format(attendance.clockoutTime, 'HH:mm') : '--:--'}">
+            --:--
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <!-- ポップアップ -->
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
       <p id="popup-name"></p>
@@ -70,6 +74,7 @@
     </div>
   </main>
 
+  <!-- 外部JS読み込み -->
   <script th:src="@{js/attendance_status.js}"></script>
 </body>
 </html>
