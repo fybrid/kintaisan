@@ -50,5 +50,16 @@ public class UserProfileInitializer implements CommandLineRunner {
 
       userProfileRepository.save(user);
     }
+
+    if (!userProfileRepository.existsByUserId("deleteduser")){
+      UserProfile user = new UserProfile();
+      user.setUserId("deleteduser");
+      user.setDepartmentId(3);
+      user.setEmail("deleteduser@example.com");
+      user.setWorkplaceId(3);
+      user.setPhoneNumber("00000000000");
+
+      userProfileRepository.save(user);
+    }
   }
 }

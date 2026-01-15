@@ -42,13 +42,24 @@ public class UserAccountInitializer implements CommandLineRunner{
       userAccountRepository.save(user);
     }
 
-    if (!userAccountRepository.existsByUserId("user01")) {
+    if (!userAccountRepository.existsByUserId("user1")) {
       UserAccount user = new UserAccount();
       user.setUserId("user1");
       user.setPassword(passwordEncoder.encode("password"));
       user.setName("User1");
       user.setRoleId((short)1);
       user.setIsActive(true);
+
+      userAccountRepository.save(user);
+    }
+
+    if (!userAccountRepository.existsByUserId("deleteduser")) {
+      UserAccount user = new UserAccount();
+      user.setUserId("deleteduser");
+      user.setPassword(passwordEncoder.encode("password"));
+      user.setName("Deleteduser");
+      user.setRoleId((short)1);
+      user.setIsActive(false);
 
       userAccountRepository.save(user);
     }

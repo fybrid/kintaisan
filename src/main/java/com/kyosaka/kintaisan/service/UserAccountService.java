@@ -113,7 +113,7 @@ public class UserAccountService {
   }
 
   public List<UserListRequest> getUser() {
-    List<UserAccount> accounts = userAccountRepository.findAll(Sort.by(Sort.Direction.ASC, "userId"));
+    List<UserAccount> accounts = userAccountRepository.findByIsActiveTrue(Sort.by(Sort.Direction.ASC, "userId"));
     List<UserProfile> profiles = userProfileRepository.findAll();
     List<departments> departmentList = departmentsRepository.findAll();
 
