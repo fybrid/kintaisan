@@ -18,17 +18,37 @@ public class UserProfileInitializer implements CommandLineRunner {
 
   @Override
   public void run (String... args) {
-    if (userProfileRepository.existsByUserId("superadmin")){
-      return;
+    if (!userProfileRepository.existsByUserId("superadmin")){
+      UserProfile user = new UserProfile();
+      user.setUserId("superadmin");
+      user.setDepartmentId(1);
+      user.setEmail("superadmin@example.com");
+      user.setWorkplaceId(1);
+      user.setPhoneNumber("09012345678");
+
+      userProfileRepository.save(user);
     }
 
-    UserProfile user = new UserProfile();
-    user.setUserId("superadmin");
-    user.setDepartmentId(1);
-    user.setEmail("admin@admin.com");
-    user.setWorkplaceId(1);
-    user.setPhoneNumber("09012345678");
+    if (!userProfileRepository.existsByUserId("admin")){
+      UserProfile user = new UserProfile();
+      user.setUserId("admin");
+      user.setDepartmentId(2);
+      user.setEmail("admin@example.com");
+      user.setWorkplaceId(1);
+      user.setPhoneNumber("09023456789");
 
-    userProfileRepository.save(user);
+      userProfileRepository.save(user);
+    }
+
+    if (!userProfileRepository.existsByUserId("user01")){
+      UserProfile user = new UserProfile();
+      user.setUserId("user1");
+      user.setDepartmentId(3);
+      user.setEmail("user1@example.com");
+      user.setWorkplaceId(2);
+      user.setPhoneNumber("09034567890");
+
+      userProfileRepository.save(user);
+    }
   }
 }
