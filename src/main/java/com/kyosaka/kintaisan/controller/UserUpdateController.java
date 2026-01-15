@@ -31,7 +31,7 @@ public class UserUpdateController {
         String userId = (String) userIdO;
         System.out.println("userId: " + userId);
         // ユーザーが登録している勤務先を取得
-        model.addAttribute("workplaceId", userProfileService.getUserWorkplace(userId));
+        model.addAttribute("selectedWorkplaceId", userProfileService.getUserWorkplace(userId));
         // System.out.println("workplaceId: " + userProfileService.getUserWorkplace(userId));
         
         // workplacesから勤務先を取得
@@ -43,9 +43,18 @@ public class UserUpdateController {
 
         return "tellandplace";
     }
-    @PostMapping("/updateUser")
-    public String updateUser(@RequestParam String workplace, @RequestParam String contact) {
+    @GetMapping("/updateUser")
+    public String updateUser(@RequestParam String workplace, @RequestParam String contact, Model model, HttpSession session) {
+        // workplaceが空の場合はエラー文をHTMLに返す
+        if (workplace == null || workplace.isEmpty()) {
+            // エラー文を返す
+            model.addAttribute("errorMessage", "勤務先を選択してください。");
+            return tellandplace(model, session);
+        }
+        
         // 取得した勤務先と連絡先をuser_profilesに更新する
+        System.out.println("workplace: " + workplace);
+        System.out.println("contact: " + contact);
         return "redirect:/attendance_input";
     }
 }
