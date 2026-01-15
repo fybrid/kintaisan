@@ -40,7 +40,7 @@ public class UserProfileInitializer implements CommandLineRunner {
       userProfileRepository.save(user);
     }
 
-    if (!userProfileRepository.existsByUserId("user01")){
+    if (!userProfileRepository.existsByUserId("user1")){
       UserProfile user = new UserProfile();
       user.setUserId("user1");
       user.setDepartmentId(3);
