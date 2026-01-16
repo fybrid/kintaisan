@@ -145,4 +145,22 @@ public class UserAccountService {
     return result;
   }
 
+  public Boolean deleteUser(String userId) {
+    if (userId == null || userId.isBlank()) {
+      return false;
+    }
+
+    Optional<UserAccount> userOpt = userAccountRepository.findByUserId(userId);
+    if (userOpt.isEmpty()) {
+      return false;
+    }
+
+    UserAccount user = userOpt.get();
+    if (!Boolean.FALSE.equals(user.getIsActive())) {
+      user.setIsActive(false);
+      userAccountRepository.save(user);
+    }
+    return true;
+  }
+
 }

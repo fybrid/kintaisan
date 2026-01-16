@@ -48,7 +48,7 @@
                             <th>操作</th>
                         </tr>
                         <tr th:each="account : ${accounts}">
-                            <td><button class="delete">削除</button></td>
+                            <td><button class="delete" th:attr="data-user-id=${account.userId}">削除</button></td>
                             <td th:text="${account.userId}">user001</td>
                             <td th:text="${account.name}">山田 太郎</td>
                             <td th:text="${account.departmentName}">営業</td>

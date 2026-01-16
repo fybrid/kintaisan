@@ -21,7 +21,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             auth ->
                 auth
-                    .requestMatchers("/", "/login", "/attendance_input", "/list", "/create", "/logout", "/attendance_input", "/attendance_status", "/stamp", "/api/signin", "/api/signout", "/admin/users/list", "/admin/users/create", "/error")
+                    .requestMatchers("/", "/login", "/attendance_input", "/list", "/create", "/logout", "/attendance_input", "/attendance_status", "/stamp", "/api/signin", "/api/signout", "/admin/users/list", "/admin/users/create", "/admin/users/delete", "/error")
                     .permitAll()
                     .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico")
                     .permitAll()
