@@ -23,13 +23,13 @@
                 <a class="nav-item" href="/attendance_input">勤怠入力</a>
                 <a class="nav-item" href="/attendance_status">勤怠一覧</a>
                 <a class="nav-item" href="/admin/users/list">アカウント一覧</a>
-                <a class="nav-item active" href="/create">アカウント作成</a>
+                <a class="nav-item active" href="/admin/create">アカウント作成</a>
             </nav>
         </aside>
         <div class="admin-content">
             <div class="admin-content-inner">
                 <main class="page">
-                    <form class="form-card" th:action="@{/admin/users/create}" method="post">
+                    <form class="form-card" th:action="@{/admin/create}" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
                     <div class="form-head">
