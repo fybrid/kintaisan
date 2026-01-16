@@ -1,7 +1,6 @@
 .subheader {
     width: 100%;
-    max-width: 1100px;
-    margin: 8px auto 16px;
+    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,8 +59,7 @@
 
 .main {
     width: 100%;
-    max-width: 1100px;
-    margin: 0 auto 48px;
+    margin: 0;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
