@@ -20,17 +20,48 @@ public class UserAccountInitializer implements CommandLineRunner{
 
   @Override
   public void run (String... args) {
-    if (userAccountRepository.existsByUserId("superadmin")) {
-      return;
+    if (!userAccountRepository.existsByUserId("superadmin")) {
+      UserAccount user = new UserAccount();
+      user.setUserId("superadmin");
+      user.setPassword(passwordEncoder.encode("password"));
+      user.setName("SuperAdmin");
+      user.setRoleId((short)3);
+      user.setIsActive(true);
+
+      userAccountRepository.save(user);
     }
 
-    UserAccount user = new UserAccount();
-    user.setUserId("superadmin");
-    user.setPassword(passwordEncoder.encode("password"));
-    user.setName("SuperAdmin");
-    user.setRoleId((short)3);
-    user.setIsActive(true);
+    if (!userAccountRepository.existsByUserId("admin")) {
+      UserAccount user = new UserAccount();
+      user.setUserId("admin");
+      user.setPassword(passwordEncoder.encode("password"));
+      user.setName("Admin");
+      user.setRoleId((short)2);
+      user.setIsActive(true);
 
-    userAccountRepository.save(user);
+      userAccountRepository.save(user);
+    }
+
+    if (!userAccountRepository.existsByUserId("user1")) {
+      UserAccount user = new UserAccount();
+      user.setUserId("user1");
+      user.setPassword(passwordEncoder.encode("password"));
+      user.setName("User1");
+      user.setRoleId((short)1);
+      user.setIsActive(true);
+
+      userAccountRepository.save(user);
+    }
+
+    if (!userAccountRepository.existsByUserId("deleteduser")) {
+      UserAccount user = new UserAccount();
+      user.setUserId("deleteduser");
+      user.setPassword(passwordEncoder.encode("password"));
+      user.setName("Deleteduser");
+      user.setRoleId((short)1);
+      user.setIsActive(false);
+
+      userAccountRepository.save(user);
+    }
   }
 }
