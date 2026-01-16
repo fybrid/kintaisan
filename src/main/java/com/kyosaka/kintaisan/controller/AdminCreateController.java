@@ -4,6 +4,7 @@ import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
 import com.kyosaka.kintaisan.service.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/admin")
 public class AdminCreateController {
 
-    private final UserAccountService userAccountService;
+  private final UserAccountService userAccountService;
 
-    AdminCreateController(UserAccountService userAccountService) {
-        this.userAccountService = userAccountService;
-    }
+  AdminCreateController(UserAccountService userAccountService) {
+    this.userAccountService = userAccountService;
+  }
+
+  @GetMapping("/create")
+	public String showCreatePage(){
+		return "accountCreate";
+	}
 
   @PostMapping("/users/create")
   public String createUser(@ModelAttribute UserAccountCreateRequest form) {
