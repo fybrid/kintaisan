@@ -112,8 +112,16 @@ public class UserAccountService {
 
   }
 
-  public List<UserListRequest> getUser() {
-    List<UserAccount> accounts = userAccountRepository.findByIsActiveTrue(Sort.by(Sort.Direction.ASC, "userId"));
+  public List<UserListRequest> getUser(Short sessionRoleId) {
+    List<UserAccount> accounts;
+    if (sessionRoleId != null && sessionRoleId.shortValue() == 3) {
+      accounts = userAccountRepository.findByIsActiveTrue(Sort.by(Sort.Direction.ASC, "userId"));
+    } else {
+      accounts = userAccountRepository.findByIsActiveTrueAndRoleIdNot(
+          Sort.by(Sort.Direction.ASC, "userId"),
+          (short) 3
+      );
+    }
     List<UserProfile> profiles = userProfileRepository.findAll();
     List<departments> departmentList = departmentsRepository.findAll();
 

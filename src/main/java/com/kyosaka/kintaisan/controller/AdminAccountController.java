@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kyosaka.kintaisan.service.UserAccountService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminAccountController {
@@ -20,8 +22,18 @@ public class AdminAccountController {
   }
 
   @GetMapping("/users/list")
-  public String getUser(Model model) {
-    model.addAttribute("accounts", userAccountService.getUser());
+  public String getUser(Model model, HttpSession session) {
+    Object roleIdObj = session.getAttribute("roleId");
+    Short sessionRoleId = null;
+
+    // Intで入っていてもshortに直す処理
+    if (roleIdObj instanceof Short) {
+      sessionRoleId = (Short) roleIdObj;
+    } else if (roleIdObj instanceof Integer) {
+      sessionRoleId = ((Integer) roleIdObj).shortValue();
+    }
+
+    model.addAttribute("accounts", userAccountService.getUser(sessionRoleId));
     return "accountList";
   }
 

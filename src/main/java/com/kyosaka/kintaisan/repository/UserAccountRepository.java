@@ -16,4 +16,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Intege
   Optional<UserAccount> findByUserIdOrName(String userId, String name);
 
   List<UserAccount> findByIsActiveTrue(Sort sort);
+
+  //特定の権限（RoleID）を除外する
+  List<UserAccount> findByIsActiveTrueAndRoleIdNot(Sort sort, short roleId);
 }
