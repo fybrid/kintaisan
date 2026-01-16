@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("checkInForm");
   const modalOverlay = document.getElementById("modalOverlay");
   const modal = document.getElementById("modal");
-  const selectBox = document.getElementById("workplace");
+  const selectBox = document.getElementById("workplaceId");
   const alertAreaSelect = document.getElementById("alertAreaSelect");
 
   // ▼ 日付更新
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.style.display = "none";
       // window.location.href = "/attendance_status";
       form.submit();
-    }, 3000);
+    }, 1000);
   });
 
   // ▼ セレクト変更時にエラー解除
