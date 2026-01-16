@@ -38,7 +38,7 @@ public class UserUpdateController {
 
         // ユーザーが登録している連絡先を取得
         model.addAttribute("contact", userProfileService.getphone(userId));
-        System.out.println("contact: " + userProfileService.getphone(userId));
+        // System.out.println("contact: " + userProfileService.getphone(userId));
 
         return "tellandplace";
     }
@@ -50,10 +50,10 @@ public class UserUpdateController {
             model.addAttribute("errorMessage", "勤務先を選択してください。");
             return tellandplace(model, session);
         }
-        
+        model.addAttribute("status", userProfileService.updateUser((String)session.getAttribute("userId"), Integer.parseInt(workplace), contact));
         // 取得した勤務先と連絡先をuser_profilesに更新する
-        System.out.println("workplace: " + workplace);
-        System.out.println("contact: " + contact);
-        return "redirect:/attendance_input";
+        // System.out.println("workplace: " + workplace);
+        // System.out.println("contact: " + contact);
+        return tellandplace(model, session);
     }
 }

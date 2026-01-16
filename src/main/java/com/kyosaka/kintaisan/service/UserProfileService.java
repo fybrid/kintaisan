@@ -45,4 +45,16 @@ public class UserProfileService {
         }
         return "";
     }
+    public int updateUser(String userId, int workplaceId, String phoneNumber){
+        Optional<UserProfile> up = userProfileRepository.findByUserId(userId);
+        int ret = -1;
+        if (up.isPresent()) {
+            UserProfile data = up.get();
+            data.setWorkplaceId(workplaceId);
+            data.setPhoneNumber(phoneNumber);
+            userProfileRepository.save(data);
+            ret = 1;
+        }
+        return ret;
+    }
 }
