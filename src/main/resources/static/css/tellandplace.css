@@ -62,7 +62,7 @@ input[type="submit"]:hover {
 main {
     display: flex;
     justify-content: center; /* 横方向の中央寄せ */
-    margin-top: 95px;
+    /* margin-top: 95px; */
 
 }
 #modalOverlay {
