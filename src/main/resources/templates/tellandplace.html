@@ -4,56 +4,59 @@
   <meta charset="UTF-8">
   <title>連絡先 / 勤務地 編集</title>
 
-  <!-- 外部JSを読み込み -->
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="/tellandplace.css" th:href="@{/css/tellandplace.css}">
+
   <script th:src="@{js/tellandplace.js}" defer></script>
 </head>
 <body>
 
   <!-- メニュー -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="attendance_input">勤怠入力</a></li>
-        <li><a href="attendance_status">勤怠状況</a></li>
-        <li><a href="tellandplace">連絡先・勤務地編集</a></li>
-        <li><a href="login">ログアウト</a></li>
-      </ul>
+  <header class="top-bar">
+    <nav class="top-nav">
+      <a href="attendance_input">勤怠入力</a>
+      <a href="attendance_status">勤怠状況</a>
+      <a href="tellandplace">連絡先・勤務地編集</a>
+      <a href="login" class="logout">ログアウト</a>
     </nav>
   </header>
 
-  <hr>
+  <!-- サブヘッダー（戻るボタン） -->
+  <header class="subheader">
+    <a href="#" id="back-btn" class="back">← 戻る</a>
+  </header>
 
   <main>
 
-    <!-- 戻るボタン（JSで動かすため id を付ける） -->
-    <p>
-      <button type="button" id="back-btn">← BACK</button>
-    </p>
+    <form th:action="@{/updateUser}" method="get">
 
-    <form action="" method="get">
+      <select id="workplace" name="workplace">
+      <option value="">勤務地を選択</option>
 
-      <p>
-        <label for="workplace">勤務地：</label>
-        <select id="workplace" name="workplace">
-          <option value="">勤務地を選択</option>
-          <option value="本社">本社</option>
-          <option value="支社">支社</option>
-          <option value="自宅">自宅</option>
-        </select>
-      </p>
+      <option th:each="workplace : ${selectAll}"
+          th:text="${workplace.workplaceName}"
+          th:value="${workplace.workplaceId}"
+          th:selected="${workplace.workplaceId == selectedWorkplaceId}">
+      </option>
+      </select>
 
-      <p>
-        <label for="contact">連絡先：</label>
-        <input type="text" id="contact" name="contact">
-      </p>
+      <input type="text" id="contact" name="contact"
+       th:value="${contact}">
 
       <p>
         <input type="submit" value="保存">
       </p>
 
     </form>
-
+    <p><span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span></p>
   </main>
+
+    <!-- モーダル -->
+  <div id="modalOverlay"></div>
+  <div id="modal">
+    <p>Success</p>
+    <p th:if="${status == 1}">連絡先、勤務地を変更しました。</p>
+  </div>
 
 </body>
 </html>

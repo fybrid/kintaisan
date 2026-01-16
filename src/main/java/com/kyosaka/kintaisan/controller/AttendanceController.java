@@ -66,10 +66,4 @@ public class AttendanceController {
         }
         return "redirect:/attendance_status";
     }
-
-    @GetMapping("/attendance_status")
-    public String attendance_status() {
-        return "attendance_status";
-    }
-    
 }
