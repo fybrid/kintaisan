@@ -51,5 +51,12 @@
     <p><span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span></p>
   </main>
 
+    <!-- モーダル -->
+  <div id="modalOverlay"></div>
+  <div id="modal">
+    <p>Success</p>
+    <p th:if="${status == 1}">連絡先、勤務地を変更しました。</p>
+  </div>
+
 </body>
 </html>
