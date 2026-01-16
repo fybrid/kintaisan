@@ -1,9 +1,12 @@
 package com.kyosaka.kintaisan.repository;
 
+import com.kyosaka.kintaisan.entity.departments;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.kyosaka.kintaisan.entity.departments;
+import java.util.Optional;
 
-public interface departmentsRepository extends JpaRepository<departments, Integer>{
-  boolean existsByDepartmentId(Integer departmentId);
+public interface departmentsRepository
+        extends JpaRepository<departments, Integer> {
+
+    Optional<departments> findByDepartmentId(int departmentId);
 }
