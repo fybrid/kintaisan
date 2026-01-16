@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ▼ セレクト変更時にエラー解除
+  // その前にifでselectBoxがあるか確認
+  if (selectBox)
   selectBox.addEventListener("change", () => {
     if (selectBox.value !== "") {
       alertAreaSelect.textContent = "";
@@ -74,7 +76,7 @@ window.addEventListener("pageshow", () => {
   const alertAreaNow = document.getElementById("alertAreaSelect");
 
   // ▼ 選択状態を強制リセット
-  selectBoxNow.value = "";
+  // selectBoxNow.value = "";
 
   // ▼ 5秒後にエラー表示
   setTimeout(() => {
