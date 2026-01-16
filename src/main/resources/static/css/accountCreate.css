@@ -35,6 +35,12 @@
     font-size: 14px;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+
 .field {
     display: flex;
     flex-direction: column;
@@ -78,6 +84,10 @@ input[type="password"]:focus {
     color: var(--text);
 }
 
+.form-grid .toggle-row {
+    grid-column: 1 / -1;
+}
+
 input[type="checkbox"] {
     margin: 0;
 }
@@ -115,5 +125,11 @@ input[type="submit"]:active {
 
     .form-head h1 {
         font-size: 22px;
+    }
+}
+
+@media (max-width: 800px) {
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }
