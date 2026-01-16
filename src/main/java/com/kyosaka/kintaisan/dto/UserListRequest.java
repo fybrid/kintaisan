@@ -7,4 +7,5 @@ public class UserListRequest {
   private String userId;
   private String name;
   private String departmentName;
+  private short roleId;
 }

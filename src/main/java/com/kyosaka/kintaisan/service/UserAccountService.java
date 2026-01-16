@@ -147,6 +147,7 @@ public class UserAccountService {
       row.setUserId(account.getUserId());
       row.setName(account.getName());
       row.setDepartmentName(departmentName);
+      row.setRoleId(account.getRoleId());
       result.add(row);
     }
 
@@ -163,7 +164,11 @@ public class UserAccountService {
       return false;
     }
 
+    // superadminは絶対に削除できない
     UserAccount user = userOpt.get();
+    if (user.getRoleId() == 3) {
+      return false;
+    }
     if (!Boolean.FALSE.equals(user.getIsActive())) {
       user.setIsActive(false);
       userAccountRepository.save(user);

@@ -113,6 +113,20 @@ tbody tr:last-child td {
     border-color: #f0c8c8;
 }
 
+.delete.is-hidden {
+    display: none;
+}
+
+.name-role-3 {
+    color: #b32d2d;
+    font-weight: 600;
+}
+
+.name-role-2 {
+    color: #1f5fa8;
+    font-weight: 600;
+}
+
 .edit {
     background: #e8f1f1;
     color: #2f6f6d;
