@@ -27,3 +27,12 @@ overlay.addEventListener("click", () => {
   overlay.style.display = "none";
 });
 
+document.getElementById("searchBox").addEventListener("keyup", function () {
+  const keyword = this.value.toLowerCase();
+  const rows = document.querySelectorAll("#attendance_table tbody tr");
+
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(keyword) ? "" : "none";
+  });
+});

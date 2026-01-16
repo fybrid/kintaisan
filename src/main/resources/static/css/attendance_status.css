@@ -5,11 +5,27 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 50px 40px;
+  font-size: 20px;
   background-color: #fff;
-  border: 1px solid #333;
+  border: 2px solid #333;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   z-index: 1000;
+}
+
+#close-btn{
+  color: white;
+  border: 1px;
+  font-size: 20px;
+  background-color: #4CAF50;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 50px;
+}
+
+#close-btn:hover{
+  background-color: #388E3C;
 }
 
 .overlay {
@@ -22,27 +38,58 @@
 }
 
 /* 検索ボックス */
-#search {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 200px;
+#searchBox{
+  width: 10%;
+  margin-top: 5%;
+  margin-left: 49%;
+  padding: 5px 5px;
+  font-size: 15px;
 }
 
+
+
+/*表の上にある情報の表示*/
+.meta-info{
+  width: 60%;          /* 表と同じ幅にする */
+  margin: 0 auto;      /* 表と同じく中央に配置 */
+  text-align: left;    /* 左寄せにする */
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+/*表の見た目*/
 table {
   border-collapse: collapse;
-  width: 100%;
+  border-spacing: 0;
+  width: 60%;
+  margin: 0 auto;
 }
 
-th, td {
-  border: 1px solid #333;
-  padding: 5px;
-  text-align: left;
+.table-header th{
+  font-size: large;
+  padding: 12px 20px;
+  border: 2px solid #333;
 }
 
-th {
-  background-color: #f0f0f0;
+.table-header thead th{
+  background-color: #ffffff;
 }
 
+.table-data td{
+  font-size: 20px;
+  border: 2px solid #333;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #ffffff;
+}
+
+/*表の中のユーザー名の表示*/
 .name {
+  color: blue;
   cursor: pointer;
+}
+
+.name:hover {
+  text-decoration: underline;
+  text-decoration-color: blue;
 }
