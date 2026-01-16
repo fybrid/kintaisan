@@ -6,7 +6,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@1.0.0/output/moretoggles.min.css">
     <title>アカウント作成</title>
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/adminLayout.css}">
@@ -79,11 +78,11 @@
                             <input type="password" name="check" id="check" placeholder="同じパスワードを入力">
                         </div>
 
-                        <div class="toggle-row mt-square3d-matcha" th:if="${session.roleId != null and session.roleId == 3}">
-                            <input type="checkbox" name="admin" id="admin">
-                            <label for="admin"></label>
-                            <span>管理者権限</span>
-                        </div>
+                        <label class="toggle-row switch" th:if="${session.roleId != null and session.roleId == 3}">
+                            <input type="checkbox" name="admin" id="admin" class="switch-input">
+                            <span class="switch-track" aria-hidden="true"></span>
+                            <span class="toggle-text">管理者権限</span>
+                        </label>
                     </div>
 
                         <div class="form-actions">

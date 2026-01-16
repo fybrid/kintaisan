@@ -88,6 +88,73 @@ input[type="password"]:focus {
     grid-column: 1 / -1;
 }
 
+.switch {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.switch-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+}
+
+.switch-track {
+    width: 46px;
+    height: 28px;
+    border-radius: 999px;
+    background: #e5e5ea;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.switch-track::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.switch-input:checked + .switch-track {
+    background: #34c759;
+}
+
+.switch-input:checked + .switch-track::after {
+    transform: translateX(18px);
+}
+
+.switch-input:focus-visible + .switch-track {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.switch-input:disabled + .switch-track {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.switch-input:disabled + .switch-track::after {
+    box-shadow: none;
+}
+
+.toggle-text {
+    font-size: 14px;
+    color: var(--text);
+}
+
 input[type="checkbox"] {
     margin: 0;
 }
