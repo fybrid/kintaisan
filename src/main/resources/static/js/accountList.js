@@ -17,4 +17,4 @@ deleteForms.forEach(form => {
         });
     });
 });
-        
+
