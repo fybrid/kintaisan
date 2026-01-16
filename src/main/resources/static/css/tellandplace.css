@@ -93,3 +93,14 @@ main {
 #modal p {
   margin: 10px 0;
 }
+
+.success {
+  color: green;
+  font-size: 30px;
+  font-family: "HGP行書体", cursive;
+}
+.comment {
+  font-size: 16px;
+  font-family: "BIZ UD明朝", serif;
+  font-style: bold;
+}

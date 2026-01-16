@@ -28,7 +28,8 @@
 
   <h1>連絡先 / 勤務地 の更新</h1>
   <main>
-    <form th:action="@{/updateUser}" method="get">
+    <form th:action="@{/updateUser}" method="get" id="updateForm">
+      <p id="errorMessage" style="color: red;"><span th:if="${errorMessage}" th:text="${errorMessage}"></span></p>
 
       <select id="workplace" name="workplace">
       <option value="">勤務地を選択</option>
@@ -48,14 +49,13 @@
       </p>
 
     </form>
-    <p><span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span></p>
   </main>
 
     <!-- モーダル -->
   <div id="modalOverlay"></div>
   <div id="modal">
-    <p>Success</p>
-    <p th:if="${status == 1}">連絡先、勤務地を変更しました。</p>
+    <p class="success">Success</p>
+    <p class="comment">連絡先、勤務地を変更しました。</p>
   </div>
 
 </body>
