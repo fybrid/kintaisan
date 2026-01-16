@@ -1,7 +1,8 @@
-const deleteButtons = document.querySelectorAll('.delete');
-deleteButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const userId = this.parentElement.nextElementSibling.textContent;
+const deleteForms = document.querySelectorAll('.delete-form');
+deleteForms.forEach(form => {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const userId = form.querySelector('input[name="userId"]')?.value || '';
         Swal.fire({
             title: '本当に削除しますか？',
             text: `ユーザーID: ${userId} を削除すると復元できません。`,
@@ -11,15 +12,7 @@ deleteButtons.forEach(button => {
             cancelButtonText: 'キャンセル'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    `${userId} を削除しました。`,
-                    '',
-                    'success'
-                );
-                // SpringBootのルートマッピングにDELETEリクエストを送るコード
-                fetch(`/api/admin/users/delete&userid=${userId}`, {
-                    
-                });
+                form.submit();
             }
         });
     });

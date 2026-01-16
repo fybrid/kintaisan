@@ -1,13 +1,11 @@
 package com.kyosaka.kintaisan.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kyosaka.kintaisan.service.UserAccountService;
 
@@ -28,12 +26,10 @@ public class AdminAccountController {
   }
 
   @PostMapping("/users/delete")
-  @ResponseBody
-  public ResponseEntity<Void> deleteUser(@RequestParam String userId) {
-    boolean deleted = userAccountService.deleteUser(userId);
-    if (deleted) {
-      return ResponseEntity.ok().build();
+  public String deleteUser(@RequestParam String userId) {
+    if (userAccountService.deleteUser(userId)) {
+      return "redirect:/admin/users/list";
     }
-    return ResponseEntity.notFound().build();
+    return "redirect:/admin/users/list";
   }
 }

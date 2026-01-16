@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アカウント一覧</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
@@ -48,7 +50,13 @@
                             <th>操作</th>
                         </tr>
                         <tr th:each="account : ${accounts}">
-                            <td><button class="delete" th:attr="data-user-id=${account.userId}">削除</button></td>
+                            <td>
+                                <form class="delete-form" th:action="@{/admin/users/delete}" method="post">
+                                    <input type="hidden" name="userId" th:value="${account.userId}">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                    <button class="delete" type="submit" th:attr="data-user-id=${account.userId}">削除</button>
+                                </form>
+                            </td>
                             <td th:text="${account.userId}">user001</td>
                             <td th:text="${account.name}">山田 太郎</td>
                             <td th:text="${account.departmentName}">営業</td>
