@@ -50,12 +50,28 @@
 
                         <div class="field">
                             <label for="place">勤務先</label>
-                            <input type="text" name="workplaceId" id="place" placeholder="例: 1">
+                            <div class="select-wrap">
+                                <select name="workplaceId" id="place">
+                                    <option value="">選択してください</option>
+                                    <option th:each="workplace : ${workplaces}"
+                                            th:value="${workplace.workplaceId}"
+                                            th:text="${workplace.workplaceName}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="field">
                             <label for="department">部署</label>
-                            <input type="text" name="departmentId" id="department" placeholder="例: 2">
+                            <div class="select-wrap">
+                                <select name="departmentId" id="department">
+                                    <option value="">選択してください</option>
+                                    <option th:each="department : ${departments}"
+                                            th:value="${department.departmentId}"
+                                            th:text="${department.departmentName}">
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="field">

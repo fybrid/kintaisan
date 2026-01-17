@@ -3,6 +3,7 @@ package com.kyosaka.kintaisan.controller;
 import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
 import com.kyosaka.kintaisan.service.UserAccountService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +21,9 @@ public class AdminCreateController {
   }
 
   @GetMapping("/create")
-	public String showCreatePage(){
+	public String showCreatePage(Model model){
+    model.addAttribute("departments", userAccountService.getDepartments());
+    model.addAttribute("workplaces", userAccountService.getWorkplaces());
 		return "accountCreate";
 	}
 
