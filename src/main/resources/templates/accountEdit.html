@@ -3,25 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JNKKKK/MoreToggles.css@1.0.0/output/moretoggles.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
     <title>アカウント編集</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/adminLayout.css}">
+    <link rel="stylesheet" th:href="@{/css/formLayout.css}">
     <link rel="stylesheet" th:href="@{/css/accountEdit.css}">
 </head>
 <body>
-    <form action="/api/admin/users/update" method="post">
-        <input type="text" name="userid" id="userid" placeholder="ユーザーID">
-        <input type="text" name="name" id="name" placeholder="氏名">
-        <input type="text" name="place" id="place" placeholder="勤務先">
-        <input type="text" name="phone" id="phone" placeholder="電話番号">
-        <input type="text" name="department" id="department" placeholder="部署">
-        <div class="mt-square3d-matcha">
-            <input type="checkbox" name="admin" id="admin">
-            <label for="admin"></label>
-            管理者権限
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="sidebar-head">
+                <span class="sidebar-title">管理メニュー</span>
+                <span class="sidebar-sub">kintaisan</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item" href="/">ホーム</a>
+                <a class="nav-item" href="/attendance_input">勤怠入力</a>
+                <a class="nav-item" href="/attendance_status">勤怠一覧</a>
+                <a class="nav-item" href="/admin/users/list">アカウント一覧</a>
+                <a class="nav-item" href="/admin/create">アカウント作成</a>
+            </nav>
+        </aside>
+        <div class="admin-content">
+            <div class="admin-content-inner">
+                <main class="page">
+                    <form class="form-card" th:action="@{/admin/create}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                    <div class="form-head">
+                        <h1>アカウント作成</h1>
+                        <p>必要事項を入力してください。</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="userId">ユーザーID<span class="required-mark">*</span></label>
+                            <input type="text" name="userId" id="userId" placeholder="例: yamada01" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="username">氏名<span class="required-mark">*</span></label>
+                            <input type="text" name="name" id="username" placeholder="例: 山田 太郎" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="place">勤務先<span class="required-mark">*</span></label>
+                            <div class="select-wrap">
+                                <select name="workplaceId" id="place" required>
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option th:each="workplace : ${workplaces}"
+                                            th:value="${workplace.workplaceId}"
+                                            th:text="${workplace.workplaceName}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="department">部署<span class="required-mark">*</span></label>
+                            <div class="select-wrap">
+                                <select name="departmentId" id="department" required>
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option th:each="department : ${departments}"
+                                            th:value="${department.departmentId}"
+                                            th:text="${department.departmentName}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">電話番号</label>
+                            <input type="text" name="phoneNumber" id="phone" inputmode="numeric" placeholder="例: 34567890">
+                        </div>
+
+                        <div class="field">
+                            <label for="email">メールアドレス</label>
+                            <input type="text" name="email" id="email" placeholder="例: user@example.com">
+                        </div>
+
+                        <div class="field">
+                            <label for="password">新しいパスワード<span class="required-mark">*</span></label>
+                            <input type="password" name="password" id="password" placeholder="8文字以上" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="check">新しいパスワード（確認用）<span class="required-mark">*</span></label>
+                            <input type="password" name="check" id="check" placeholder="同じパスワードを入力" required>
+                        </div>
+
+                        <label class="toggle-row switch" th:if="${session.roleId != null and session.roleId == 3}">
+                            <input type="checkbox" name="admin" id="admin" class="switch-input">
+                            <span class="switch-track" aria-hidden="true"></span>
+                            <span class="toggle-text">管理者権限</span>
+                        </label>
+                    </div>
+
+                        <div class="form-actions">
+                            <input type="submit" value="更新">
+                        </div>
+                    </form>
+                </main>
+            </div>
         </div>
-        <button type="button" id="passbtn">🔑</button>
-        <button type="submit">作成</button>
-    </form>
-    <script th:src="@{/js/accountEdit.js}"></script>
+    </div>
 </body>
+
 </html>
