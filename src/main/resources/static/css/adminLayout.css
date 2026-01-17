@@ -65,6 +65,15 @@
     padding: 32px;
 }
 
+.admin-content-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 8px auto 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 @media (max-width: 900px) {
     .admin-shell {
         flex-direction: column;

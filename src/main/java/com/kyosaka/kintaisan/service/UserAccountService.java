@@ -21,6 +21,8 @@ import com.kyosaka.kintaisan.entity.UserAccount;
 import com.kyosaka.kintaisan.entity.UserProfile;
 import com.kyosaka.kintaisan.repository.UserAccountRepository;
 import com.kyosaka.kintaisan.repository.departmentsRepository;
+import com.kyosaka.kintaisan.repository.workplacesRepository;
+import com.kyosaka.kintaisan.entity.workplaces;
 
 @Service
 public class UserAccountService {
@@ -28,14 +30,16 @@ public class UserAccountService {
   private final UserAccountRepository userAccountRepository;
   private final UserProfileRepository userProfileRepository;
   private final departmentsRepository departmentsRepository;
+  private final workplacesRepository workplacesRepository;
   private final PasswordEncoder passwordEncoder;
   private static final Logger logger = LoggerFactory.getLogger(UserAccountService.class);
 
-  public UserAccountService(PasswordEncoder passwordEncoder, UserAccountRepository userAccountRepository, UserProfileRepository userProfileRepository, departmentsRepository departmentsRepository) {
+  public UserAccountService(PasswordEncoder passwordEncoder, UserAccountRepository userAccountRepository, UserProfileRepository userProfileRepository, departmentsRepository departmentsRepository, workplacesRepository workplacesRepository) {
     this.passwordEncoder = passwordEncoder;
     this.userAccountRepository = userAccountRepository;
     this.userProfileRepository = userProfileRepository;
     this.departmentsRepository = departmentsRepository;
+    this.workplacesRepository = workplacesRepository;
   }
 
   public enum SigninStatus {
@@ -110,6 +114,14 @@ public class UserAccountService {
       return true;
     }
 
+  }
+
+  public List<departments> getDepartments() {
+    return departmentsRepository.findAll();
+  }
+
+  public List<workplaces> getWorkplaces() {
+    return workplacesRepository.findAll();
   }
 
   public List<UserListRequest> getUser(Short sessionRoleId) {

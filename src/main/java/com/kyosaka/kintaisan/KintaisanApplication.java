@@ -29,8 +29,4 @@ public class KintaisanApplication {
 	// 	return "accountList";
 	// }
 
-	@GetMapping("/create")
-	public String showCreatePage(){
-		return "accountCreate";
-	}
 }
