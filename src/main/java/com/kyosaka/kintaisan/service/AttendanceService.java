@@ -1,7 +1,9 @@
 package com.kyosaka.kintaisan.service;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,23 +12,31 @@ import org.springframework.stereotype.Service;
 
 import com.kyosaka.kintaisan.entity.Attendance;
 import com.kyosaka.kintaisan.entity.UserProfile;
+import com.kyosaka.kintaisan.entity.departments;
 import com.kyosaka.kintaisan.entity.workplaces;
 import com.kyosaka.kintaisan.repository.AttendanceRepository;
+import com.kyosaka.kintaisan.repository.AttendanceStatusRepository;
 import com.kyosaka.kintaisan.repository.UserProfileRepository;
 import com.kyosaka.kintaisan.repository.workplacesRepository;
+import com.kyosaka.kintaisan.repository.departmentsRepository;
+import com.kyosaka.kintaisan.dto.AttendanceStatusDto;
 
 @Service
 public class AttendanceService {
     // AttendanceRepositoryのインスタンス
     private final AttendanceRepository attendanceRepository;
+    private final AttendanceStatusRepository attendanceStatusRepository;
     private final workplacesRepository workplacesRepository;
     private final UserProfileRepository userProfileRepository;
+    private final departmentsRepository departmentRepository;
 
     // コンストラクタ
-    public AttendanceService(AttendanceRepository attendanceRepository, workplacesRepository workplacesRepository, UserProfileRepository userProfileRepository) {
+    public AttendanceService(AttendanceRepository attendanceRepository, AttendanceStatusRepository attendanceStatusRepository, workplacesRepository workplacesRepository, UserProfileRepository userProfileRepository, departmentsRepository departmentRepository) {
         this.attendanceRepository = attendanceRepository;
+        this.attendanceStatusRepository = attendanceStatusRepository;
         this.workplacesRepository = workplacesRepository;
         this.userProfileRepository = userProfileRepository;
+        this.departmentRepository = departmentRepository;
     }
     // テスト用メソッド
     public String test(String userId){
@@ -145,4 +155,48 @@ public class AttendanceService {
     }
 
     //---------- Attendance_status ----------
+
+    public List<AttendanceStatusDto> getTodayAttendanceStatus(String userId) {
+
+        //userId → departmentId
+        UserProfile profile = userProfileRepository
+                .findByUserId(userId)
+                .orElseThrow(() ->
+                        new RuntimeException("UserProfile not found"));
+
+        int departmentId = profile.getDepartmentId();
+
+        //今日
+        LocalDate today = LocalDate.now();
+
+        //Repository呼び出し
+        return attendanceStatusRepository.findTodayStatusRaw(today, departmentId)
+                .stream()
+                .map(r -> new AttendanceStatusDto(
+                        (String) r[0],
+                        (String) r[1],
+                        (String) r[2],
+                        (String) r[3],
+                        (String) r[4],
+                        r[5] == null ? null :
+                                ((Instant) r[5]).atZone(ZoneId.of("Asia/Tokyo")),
+                        r[6] == null ? null :
+                                ((Instant) r[6]).atZone(ZoneId.of("Asia/Tokyo"))
+                ))
+                .toList();
+        }
+        
+        public String getDepartmentNameByUserId(String userId) {
+
+        //部署id取得
+        UserProfile profile = userProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("UserProfile not found"));
+
+        int departmentId = profile.getDepartmentId();
+
+        //部署idから部署名取得
+        return departmentRepository.findByDepartmentId(departmentId)
+                .map(departments::getDepartmentName)
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+        }
 }

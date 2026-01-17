@@ -1,0 +1,28 @@
+:root {
+    --bg: radial-gradient(circle at top, #f3f6f2 0%, #edf2f5 45%, #f7efe6 100%);
+    --card-bg: #ffffff;
+    --text: #2b2f33;
+    --muted: #6f747b;
+    --accent: #2f6f6d;
+    --accent-strong: #245553;
+    --border: #d9dee3;
+    --shadow: 0 14px 32px rgba(30, 41, 44, 0.12);
+    --radius: 18px;
+    --font-main: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    --font-title: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    line-height: 1.5;
+}
