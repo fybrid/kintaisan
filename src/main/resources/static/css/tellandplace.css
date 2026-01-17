@@ -81,13 +81,20 @@ main {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   background-color: #fff;
   padding: 20px 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   text-align: center;
   z-index: 1001;
+}
+
+#modal.active {
+  transform: translate(-50%, -50%) scale(1.6);
+}
+#modal.active2 {
+  transform: translate(-50%, -50%) scale(1.5);
 }
 
 #modal p {
@@ -103,4 +110,7 @@ main {
   font-size: 16px;
   font-family: "BIZ UD明朝", serif;
   font-style: bold;
+}
+.title {
+  font-family: "BIZ UDPゴシック", cursive;
 }
