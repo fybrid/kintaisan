@@ -52,6 +52,13 @@ label {
     color: var(--muted);
 }
 
+.required-mark {
+    color: #d64545;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 4px;
+}
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
