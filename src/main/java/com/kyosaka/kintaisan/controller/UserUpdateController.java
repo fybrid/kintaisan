@@ -28,7 +28,7 @@ public class UserUpdateController {
             return "redirect:/login";
         }
         String userId = (String) userIdO;
-        System.out.println("userId: " + userId);
+        // System.out.println("userId: " + userId);
         // ユーザーが登録している勤務先を取得
         model.addAttribute("selectedWorkplaceId", userProfileService.getUserWorkplace(userId));
         // System.out.println("workplaceId: " + userProfileService.getUserWorkplace(userId));
