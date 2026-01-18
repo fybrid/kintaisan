@@ -1,24 +1,55 @@
-form {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    margin: 0 auto;
+/* src/main/resources/static/css/accountEdit.css */
+#userId[readonly] {
+  background: repeating-linear-gradient(
+    135deg,
+    #f5f6f7 0 8px,
+    #eef0f2 8px 16px
+  );
+  color: #7a8088;
+  border: 1px dashed #c7ccd1;
+  box-shadow: none;
+  cursor: not-allowed;
 }
-input, button {
-    margin: 10px 0;
-    padding: 8px;
-    font-size: 16px;
+
+#userId[readonly]:focus {
+  border-color: #c7ccd1;
+  box-shadow: none;
+  background: #f5f6f7;
 }
-input[type="checkbox"] {
+.password-fields {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+
+.password-actions {
+    grid-column: 1 / -1;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.ghost-button {
     width: fit-content;
-    /* margin-left: 0; */
-    margin : 10px auto;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    background: #ffffff;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
-.mt-square3d-matcha label:before {
-    border-radius: 100px;
-    height: 3.6em;
+
+.ghost-button:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
-label {
-    margin: 20px auto;
-    border-radius: 100px;
+
+.ghost-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(47, 111, 109, 0.18);
 }

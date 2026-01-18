@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
+import com.kyosaka.kintaisan.dto.UserAccountUpdateRequest;
 import com.kyosaka.kintaisan.dto.UserListRequest;
 import com.kyosaka.kintaisan.entity.departments;
 import com.kyosaka.kintaisan.entity.UserAccount;
@@ -51,6 +52,7 @@ public class UserAccountService {
 
   public record SigninResult(SigninStatus status, String userId, Short roleId) {}
 
+  // ログインメソッド
   public SigninResult signin(String username, String password) {
     if (username == null || password == null || username.isBlank() || password.isBlank()) {
       return new SigninResult(SigninStatus.BAD_REQUEST, null, null);
@@ -69,6 +71,8 @@ public class UserAccountService {
     return new SigninResult(SigninStatus.PASSWORD_MISMATCH, null, null);
   }
 
+
+  // アカウント作成の成功判定メソッド
   public boolean createUser(UserAccountCreateRequest form){
 
 
@@ -124,6 +128,7 @@ public class UserAccountService {
     return workplacesRepository.findAll();
   }
 
+  // アカウント一覧取得メソッド
   public List<UserListRequest> getUser(Short sessionRoleId) {
     List<UserAccount> accounts;
     if (sessionRoleId != null && sessionRoleId.shortValue() == 3) {
@@ -166,6 +171,21 @@ public class UserAccountService {
     return result;
   }
 
+  public Optional<UserAccount> findUserAccount(String userId) {
+    if (userId == null || userId.isBlank()) {
+      return Optional.empty();
+    }
+    return userAccountRepository.findByUserId(userId);
+  }
+
+  public Optional<UserProfile> findUserProfile(String userId) {
+    if (userId == null || userId.isBlank()) {
+      return Optional.empty();
+    }
+    return userProfileRepository.findByUserId(userId);
+  }
+
+  // アカウント削除の成功判定メソッド
   public Boolean deleteUser(String userId) {
     if (userId == null || userId.isBlank()) {
       return false;
@@ -186,6 +206,63 @@ public class UserAccountService {
       userAccountRepository.save(user);
     }
     return true;
+  }
+
+  // アカウント編集の成功判定メソッド
+
+  public record EditResult(Boolean status, String log) {}
+
+  public EditResult editUser(UserAccountUpdateRequest form) {
+    if (form == null || form.getUserId() == null) {
+      return new EditResult(false, "入力されていません。");
+    }
+
+    Optional<UserAccount> userAccount = userAccountRepository.findByUserId(form.getUserId());
+    Optional<UserProfile> userProfile = userProfileRepository.findByUserId(form.getUserId());
+
+    UserAccount userA = userAccount.get();
+    userA.setName(form.getName());
+
+    short roleId;
+    if(Boolean.TRUE.equals(form.getAdmin())){
+      roleId = 2;
+    } else {
+      roleId = 1;
+    }
+
+    userA.setRoleId(roleId);
+
+    boolean hasPassword = form.getPassword() != null;
+    boolean hasCheck = form.getCheck() != null;
+    boolean passwordMatch = Objects.equals(form.getPassword(), form.getCheck());
+
+    if (!hasPassword && !hasCheck) {
+      // 現在のパスワードを保持する
+    } else if (hasPassword && hasCheck && passwordMatch) {
+      userA.setPassword(passwordEncoder.encode(form.getPassword()));
+    } else {
+      // TODO: 例外エラーメッセージ
+      logger.warn("Password confirmation mismatch");
+      return new EditResult(false, "パスワードが一致していません。");
+    }
+
+    UserProfile userP = userProfile.get();
+    userP.setWorkplaceId(form.getWorkplaceId());
+    userP.setDepartmentId(form.getDepartmentId());
+
+    String phonenumber = form.getPhoneNumber();
+    if (!phonenumber.matches("[0-9]+")){
+      return new EditResult(false, "電話番号は数字のみで入力してください。");
+    }
+    userP.setPhoneNumber(form.getPhoneNumber());
+    userP.setEmail(form.getEmail());
+
+    userAccountRepository.save(userA);
+    userProfileRepository.save(userP);
+
+    logger.info("Succesfully updated user.");
+
+    return new EditResult(true, "ユーザーの情報を更新しました。");
   }
 
 }
