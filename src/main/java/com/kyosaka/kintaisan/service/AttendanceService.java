@@ -97,7 +97,7 @@ public class AttendanceService {
         if (profileOpt.isEmpty()) {
             return false;
         }
-        UserProfile profile = profileOpt.get();
+        // UserProfile profile = profileOpt.get();
         Integer retAttendance = isAttendance(userId);
         int status = (retAttendance == null) ? -1 : retAttendance;
         switch (status) {

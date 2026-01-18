@@ -33,7 +33,7 @@ public class AttendanceController {
             return "redirect:/login";
         }
         String userId = (String) userIdO;
-        System.out.println("userId: " + userId);
+        // System.out.println("userId: " + userId);
         // String username = (String) session.getAttribute("username"); // ログイン機能できるまで仮置き
         model.addAttribute("name", "username"); // 勤怠入力時に表示したい
         
@@ -57,6 +57,12 @@ public class AttendanceController {
         Object userIdO = session.getAttribute("userId");
         if (userIdO == null) {
             return "redirect:/login";
+        }
+        // workplaceIdの値が空の場合はエラー文をHTMLに返す
+        if (workplaceId == 0) {
+            // エラー文を返す
+            model.addAttribute("errorMessage", "勤務先を選択してください。");
+            return inputAttendance(model, session);
         }
         String userId = (String) userIdO;
         if (attendanceService.stamp(userId, workplaceId)) {

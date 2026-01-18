@@ -36,7 +36,7 @@ public class AuthController {
       session.setAttribute("userId", result.userId());
       session.setAttribute("roleId", result.roleId());
       logger.info("ログイン成功 sessionId={}, userId={}, roleId={}", session.getId(), result.userId(), result.roleId());
-      return "redirect:/";
+      return "redirect:/attendance_input";
     }
 
     if (result.status() == SigninStatus.BAD_REQUEST) {
