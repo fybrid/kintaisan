@@ -1,0 +1,18 @@
+/* src/main/resources/static/css/accountEdit.css */
+#userId[readonly] {
+  background: repeating-linear-gradient(
+    135deg,
+    #f5f6f7 0 8px,
+    #eef0f2 8px 16px
+  );
+  color: #7a8088;
+  border: 1px dashed #c7ccd1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+#userId[readonly]:focus {
+  border-color: #c7ccd1;
+  box-shadow: none;
+  background: #f5f6f7;
+}
