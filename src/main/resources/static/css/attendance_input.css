@@ -45,3 +45,6 @@ select#workplace {
 #modal p {
   margin: 10px 0;
 }
+.leaving input[type="submit"] {
+    background-color: #f44336; /* 赤色 */
+}
