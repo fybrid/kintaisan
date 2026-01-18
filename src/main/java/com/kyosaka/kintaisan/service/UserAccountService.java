@@ -229,6 +229,20 @@ public class UserAccountService {
 
     userA.setRoleId(roleId);
 
+    boolean hasPassword = form.getPassword() != null;
+    boolean hasCheck = form.getCheck() != null;
+    boolean passwordMatch = Objects.equals(form.getPassword(), form.getCheck());
+
+    if (!hasPassword && !hasCheck) {
+      // 現在のパスワードを保持する
+    } else if (hasPassword && hasCheck && passwordMatch) {
+      userA.setPassword(passwordEncoder.encode(form.getPassword()));
+    } else {
+      // TODO: 例外エラーメッセージ
+      logger.warn("Password confirmation mismatch");
+      return false;
+    }
+
     UserProfile userP = userProfile.get();
     userP.setWorkplaceId(form.getWorkplaceId());
     userP.setDepartmentId(form.getDepartmentId());
