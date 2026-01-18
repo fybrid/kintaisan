@@ -209,9 +209,12 @@ public class UserAccountService {
   }
 
   // アカウント編集の成功判定メソッド
-  public Boolean editUser(UserAccountUpdateRequest form) {
+
+  public record EditResult(Boolean status, String log) {}
+
+  public EditResult editUser(UserAccountUpdateRequest form) {
     if (form == null || form.getUserId() == null) {
-      return false;
+      return new EditResult(false, "入力されていません。");
     }
 
     Optional<UserAccount> userAccount = userAccountRepository.findByUserId(form.getUserId());
@@ -240,7 +243,7 @@ public class UserAccountService {
     } else {
       // TODO: 例外エラーメッセージ
       logger.warn("Password confirmation mismatch");
-      return false;
+      return new EditResult(false, "パスワードが一致していません。");
     }
 
     UserProfile userP = userProfile.get();
@@ -254,7 +257,7 @@ public class UserAccountService {
 
     logger.info("Succesfully updated user.");
 
-    return true;
+    return new EditResult(true, "ユーザーの情報を更新しました。");
   }
 
 }

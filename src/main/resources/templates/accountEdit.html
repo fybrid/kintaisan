@@ -114,6 +114,8 @@
                             <span class="switch-track" aria-hidden="true"></span>
                             <span class="toggle-text">管理者権限</span>
                         </label>
+
+                        <p id="update-error" aria-live="polite" style="color:#c00;" th:if="${errorMessage}" th:text="${errorMessage}"></p>
                     </div>
 
                         <div class="form-actions">

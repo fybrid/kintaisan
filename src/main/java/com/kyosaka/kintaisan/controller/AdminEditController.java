@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kyosaka.kintaisan.dto.UserAccountUpdateRequest;
 import com.kyosaka.kintaisan.entity.UserAccount;
@@ -37,21 +38,26 @@ public class AdminEditController {
     if (accountOpt.isEmpty() || profileOpt.isEmpty()) {
       return "redirect:/admin/users/list";
     }
-
     model.addAttribute("account", accountOpt.get());
     model.addAttribute("profile", profileOpt.get());
-    model.addAttribute("originalUserId", userId);
     model.addAttribute("departments", userAccountService.getDepartments());
     model.addAttribute("workplaces", userAccountService.getWorkplaces());
     return "accountEdit";
+
   }
 
   @PostMapping("/edit")
-  public String editUser(@ModelAttribute UserAccountUpdateRequest form, Model model) {
-    if (Boolean.TRUE.equals(userAccountService.editUser(form))) {
+  public String editUser(@ModelAttribute UserAccountUpdateRequest form, Model model, RedirectAttributes redirectAttributes) {
+
+    UserAccountService.EditResult result = userAccountService.editUser(form);
+
+    if (result.status() == true) {
       return "redirect:/admin/users/list";
     } else {
-      return "accountEdit";
+      // TODO:エラーの場合の表示
+      model.addAttribute("errorMessage", result.log());
+      redirectAttributes.addAttribute("userId", form.getUserId());
+      return "redirect:/admin/edit";
     }
   }
 
