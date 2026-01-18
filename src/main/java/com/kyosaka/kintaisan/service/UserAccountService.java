@@ -249,6 +249,11 @@ public class UserAccountService {
     UserProfile userP = userProfile.get();
     userP.setWorkplaceId(form.getWorkplaceId());
     userP.setDepartmentId(form.getDepartmentId());
+
+    String phonenumber = form.getPhoneNumber();
+    if (!phonenumber.matches("[0-9]+")){
+      return new EditResult(false, "電話番号は数字のみで入力してください。");
+    }
     userP.setPhoneNumber(form.getPhoneNumber());
     userP.setEmail(form.getEmail());
 
