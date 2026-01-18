@@ -220,13 +220,14 @@ public class UserAccountService {
     UserAccount userA = userAccount.get();
     userA.setName(form.getName());
 
+    short roleId;
+    if(Boolean.TRUE.equals(form.getAdmin())){
+      roleId = 2;
+    } else {
+      roleId = 1;
+    }
 
-    // short roleId;
-    // if(Boolean.TRUE.equals(form.getAdmin())){
-    //   roleId = 2;
-    // } else {
-    //   roleId = 1;
-    // }
+    userA.setRoleId(roleId);
 
     UserProfile userP = userProfile.get();
     userP.setWorkplaceId(form.getWorkplaceId());
