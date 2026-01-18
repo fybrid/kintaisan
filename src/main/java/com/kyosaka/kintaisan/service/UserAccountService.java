@@ -51,6 +51,7 @@ public class UserAccountService {
 
   public record SigninResult(SigninStatus status, String userId, Short roleId) {}
 
+  // ログインメソッド
   public SigninResult signin(String username, String password) {
     if (username == null || password == null || username.isBlank() || password.isBlank()) {
       return new SigninResult(SigninStatus.BAD_REQUEST, null, null);
@@ -69,6 +70,8 @@ public class UserAccountService {
     return new SigninResult(SigninStatus.PASSWORD_MISMATCH, null, null);
   }
 
+
+  // アカウント作成の成功判定メソッド
   public boolean createUser(UserAccountCreateRequest form){
 
 
@@ -124,6 +127,7 @@ public class UserAccountService {
     return workplacesRepository.findAll();
   }
 
+  // アカウント一覧取得メソッド
   public List<UserListRequest> getUser(Short sessionRoleId) {
     List<UserAccount> accounts;
     if (sessionRoleId != null && sessionRoleId.shortValue() == 3) {
@@ -180,6 +184,7 @@ public class UserAccountService {
     return userProfileRepository.findByUserId(userId);
   }
 
+  // アカウント削除の成功判定メソッド
   public Boolean deleteUser(String userId) {
     if (userId == null || userId.isBlank()) {
       return false;
