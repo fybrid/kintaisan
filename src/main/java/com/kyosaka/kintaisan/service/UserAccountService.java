@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kyosaka.kintaisan.dto.UserAccountCreateRequest;
+import com.kyosaka.kintaisan.dto.UserAccountUpdateRequest;
 import com.kyosaka.kintaisan.dto.UserListRequest;
 import com.kyosaka.kintaisan.entity.departments;
 import com.kyosaka.kintaisan.entity.UserAccount;
@@ -204,6 +205,40 @@ public class UserAccountService {
       user.setIsActive(false);
       userAccountRepository.save(user);
     }
+    return true;
+  }
+
+  // アカウント編集の成功判定メソッド
+  public Boolean editUser(UserAccountUpdateRequest form) {
+    if (form == null || form.getUserId() == null) {
+      return false;
+    }
+
+    Optional<UserAccount> userAccount = userAccountRepository.findByUserId(form.getUserId());
+    Optional<UserProfile> userProfile = userProfileRepository.findByUserId(form.getUserId());
+
+    UserAccount userA = userAccount.get();
+    userA.setName(form.getName());
+
+
+    // short roleId;
+    // if(Boolean.TRUE.equals(form.getAdmin())){
+    //   roleId = 2;
+    // } else {
+    //   roleId = 1;
+    // }
+
+    UserProfile userP = userProfile.get();
+    userP.setWorkplaceId(form.getWorkplaceId());
+    userP.setDepartmentId(form.getDepartmentId());
+    userP.setPhoneNumber(form.getPhoneNumber());
+    userP.setEmail(form.getEmail());
+
+    userAccountRepository.save(userA);
+    userProfileRepository.save(userP);
+
+    logger.info("Succesfully updated user.");
+
     return true;
   }
 

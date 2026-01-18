@@ -93,12 +93,12 @@
 
                         <div class="field">
                             <label for="password">新しいパスワード<span class="required-mark">*</span></label>
-                            <input type="password" name="password" id="password" placeholder="8文字以上" required>
+                            <input type="password" name="password" id="password" placeholder="8文字以上">
                         </div>
 
                         <div class="field">
                             <label for="check">新しいパスワード（確認用）<span class="required-mark">*</span></label>
-                            <input type="password" name="check" id="check" placeholder="同じパスワードを入力" required>
+                            <input type="password" name="check" id="check" placeholder="同じパスワードを入力">
                         </div>
 
                         <label class="toggle-row switch" th:if="${session.roleId != null and session.roleId == 3}">

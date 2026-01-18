@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kyosaka.kintaisan.dto.UserAccountUpdateRequest;
 import com.kyosaka.kintaisan.entity.UserAccount;
 import com.kyosaka.kintaisan.entity.UserProfile;
 import com.kyosaka.kintaisan.service.UserAccountService;
@@ -38,14 +40,19 @@ public class AdminEditController {
 
     model.addAttribute("account", accountOpt.get());
     model.addAttribute("profile", profileOpt.get());
+    model.addAttribute("originalUserId", userId);
     model.addAttribute("departments", userAccountService.getDepartments());
     model.addAttribute("workplaces", userAccountService.getWorkplaces());
     return "accountEdit";
   }
 
   @PostMapping("/edit")
-  public String editUser() {
-    return "redirect:/admin/users/list";
+  public String editUser(@ModelAttribute UserAccountUpdateRequest form, Model model) {
+    if (Boolean.TRUE.equals(userAccountService.editUser(form))) {
+      return "redirect:/admin/users/list";
+    } else {
+      return "accountEdit";
+    }
   }
 
 
