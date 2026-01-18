@@ -73,7 +73,11 @@
                                     山田 太郎
                                 </td>
                                 <td th:text="${account.departmentName}">営業</td>
-                                <td><a href="accountEdit"><button class="edit">編集</button></a></td>
+                                <td>
+                                    <a th:href="@{/admin/edit(userId=${account.userId})}">
+                                        <button class="edit">編集</button>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

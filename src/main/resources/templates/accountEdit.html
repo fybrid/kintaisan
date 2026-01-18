@@ -41,22 +41,25 @@
                     <div class="form-grid">
                         <div class="field">
                             <label for="userId">ユーザーID<span class="required-mark">*</span></label>
-                            <input type="text" name="userId" id="userId" placeholder="例: yamada01" required>
+                            <input type="text" name="userId" id="userId" placeholder="例: yamada01" required
+                                   th:value="${account.userId}">
                         </div>
 
                         <div class="field">
                             <label for="username">氏名<span class="required-mark">*</span></label>
-                            <input type="text" name="name" id="username" placeholder="例: 山田 太郎" required>
+                            <input type="text" name="name" id="username" placeholder="例: 山田 太郎" required
+                                   th:value="${account.name}">
                         </div>
 
                         <div class="field">
                             <label for="place">勤務先<span class="required-mark">*</span></label>
                             <div class="select-wrap">
                                 <select name="workplaceId" id="place" required>
-                                    <option value="" disabled selected>選択してください</option>
+                                    <option value="" disabled th:selected="${profile == null}">選択してください</option>
                                     <option th:each="workplace : ${workplaces}"
                                             th:value="${workplace.workplaceId}"
-                                            th:text="${workplace.workplaceName}">
+                                            th:text="${workplace.workplaceName}"
+                                            th:selected="${profile != null and workplace.workplaceId == profile.workplaceId}">
                                     </option>
                                 </select>
                             </div>
@@ -66,10 +69,11 @@
                             <label for="department">部署<span class="required-mark">*</span></label>
                             <div class="select-wrap">
                                 <select name="departmentId" id="department" required>
-                                    <option value="" disabled selected>選択してください</option>
+                                    <option value="" disabled th:selected="${profile == null}">選択してください</option>
                                     <option th:each="department : ${departments}"
                                             th:value="${department.departmentId}"
-                                            th:text="${department.departmentName}">
+                                            th:text="${department.departmentName}"
+                                            th:selected="${profile != null and department.departmentId == profile.departmentId}">
                                     </option>
                                 </select>
                             </div>
@@ -77,12 +81,14 @@
 
                         <div class="field">
                             <label for="phone">電話番号</label>
-                            <input type="text" name="phoneNumber" id="phone" inputmode="numeric" placeholder="例: 34567890">
+                            <input type="text" name="phoneNumber" id="phone" inputmode="numeric" placeholder="例: 34567890"
+                                   th:value="${profile.phoneNumber}">
                         </div>
 
                         <div class="field">
                             <label for="email">メールアドレス</label>
-                            <input type="text" name="email" id="email" placeholder="例: user@example.com">
+                            <input type="text" name="email" id="email" placeholder="例: user@example.com"
+                                   th:value="${profile.email}">
                         </div>
 
                         <div class="field">

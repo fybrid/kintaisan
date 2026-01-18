@@ -166,6 +166,20 @@ public class UserAccountService {
     return result;
   }
 
+  public Optional<UserAccount> findUserAccount(String userId) {
+    if (userId == null || userId.isBlank()) {
+      return Optional.empty();
+    }
+    return userAccountRepository.findByUserId(userId);
+  }
+
+  public Optional<UserProfile> findUserProfile(String userId) {
+    if (userId == null || userId.isBlank()) {
+      return Optional.empty();
+    }
+    return userProfileRepository.findByUserId(userId);
+  }
+
   public Boolean deleteUser(String userId) {
     if (userId == null || userId.isBlank()) {
       return false;
