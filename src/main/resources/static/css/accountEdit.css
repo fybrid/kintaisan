@@ -16,3 +16,40 @@
   box-shadow: none;
   background: #f5f6f7;
 }
+.password-fields {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+}
+
+.password-actions {
+    grid-column: 1 / -1;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.ghost-button {
+    width: fit-content;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    background: #ffffff;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.ghost-button:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+
+.ghost-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(47, 111, 109, 0.18);
+}
