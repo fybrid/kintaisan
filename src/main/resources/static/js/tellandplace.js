@@ -62,13 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => {
         modal.classList.add("active");
       });
-    }, 315);
+    }, 115);
     setTimeout(() => {
       requestAnimationFrame(() => {
         modal.classList.remove("active");
         modal.classList.add("active2");
       });
-    }, 450);
+    }, 250);
     
 
     setTimeout(() => {

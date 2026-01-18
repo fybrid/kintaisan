@@ -34,8 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clock-hours").textContent = `${h}:${m}`;
     document.getElementById("clock-seconds").textContent = `:${s}`;
   }
+  // 秒ぴったりに更新する関数
+  function updateClockAccurate() {
+  const now = new Date();
 
-  setInterval(updateDateTime, 1000);
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  const s = String(now.getSeconds()).padStart(2, "0");
+
+  document.getElementById("clock-hours").textContent = `${h}:${m}`;
+  document.getElementById("clock-seconds").textContent = `:${s}`;
+
+  // 次の「秒ぴったり」までの残りms
+  const delay = 1000 - now.getMilliseconds();
+  setTimeout(updateClockAccurate, delay);
+}
+
+  updateClockAccurate();
+
+  setInterval(updateDateTime, 60 * 1000);
   updateDateTime();
   setInterval(updateClock, 1000);
   updateClock();

@@ -47,7 +47,7 @@
       <p th:if="${status == 1}">
         <input type="submit" value="出勤">
       </p>
-      <p th:if="${status == 0}">
+      <p th:if="${status == 0}" class="leaving">
         <input type="submit" value="退勤">
       </p>
     </form>
@@ -57,8 +57,8 @@
   <div id="modalOverlay"></div>
   <div id="modal">
     <p>Success</p>
-    <p th:if="${status == 1}">出勤しました。</p>
-    <p th:if="${status == 0}">退勤しました。</p>
+    <p th:if="${status == 1}" style="color: green;">出勤しました。</p>
+    <p th:if="${status == 0}" style="color: red;">退勤しました。</p>
   </div>
 
   <p><span th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></span></p>
