@@ -49,7 +49,6 @@ public class AdminEditController {
       return "login";
     }
 
-
     Optional<UserAccount> accountOpt = userAccountService.findUserAccount(userId);
     Optional<UserProfile> profileOpt = userAccountService.findUserProfile(userId);
     if (accountOpt.isEmpty() || profileOpt.isEmpty()) {
@@ -59,12 +58,13 @@ public class AdminEditController {
     model.addAttribute("profile", profileOpt.get());
     model.addAttribute("departments", userAccountService.getDepartments());
     model.addAttribute("workplaces", userAccountService.getWorkplaces());
+
     return "accountEdit";
 
   }
 
   @PostMapping("/edit")
-  public String editUser(@ModelAttribute UserAccountUpdateRequest form, Model model, RedirectAttributes redirectAttributes) {
+  public String editUser(@ModelAttribute UserAccountUpdateRequest form, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
 
     UserAccountService.EditResult result = userAccountService.editUser(form);
 
@@ -73,8 +73,16 @@ public class AdminEditController {
     } else {
       // TODO:エラーの場合の表示
       model.addAttribute("errorMessage", result.log());
-      redirectAttributes.addAttribute("userId", form.getUserId());
-      return "redirect:/admin/edit";
+      String userId = form.getUserId();
+      session.setAttribute("userIdEdit",userId);
+      session.setAttribute("name",form.getName());
+      session.setAttribute("departmentId",form.getDepartmentId());
+      session.setAttribute("workplaceId",form.getWorkplaceId());
+      session.setAttribute("phoneNumber",form.getPhoneNumber());
+      session.setAttribute("email",form.getEmail());
+      // redirectAttributes.addAttribute("userId", form.getUserId());
+      // return "redirect:/admin/edit";
+      return showEditPage(userId, model, session);
     }
   }
 
