@@ -96,6 +96,12 @@ public class UserAccountService {
     } else {
 
       // TODO: 例外エラー処理・メッセージ 例：userIdが存在していた場合
+
+      String checkId = form.getUserId();
+
+      if (userAccountRepository.existsByUserId(checkId)) {
+        return new CreateResult(false, "同じユーザーIDが存在しています。");
+      }
       UserAccount user = new UserAccount();
       user.setUserId(form.getUserId());
       user.setPassword(passwordEncoder.encode(form.getPassword()));
