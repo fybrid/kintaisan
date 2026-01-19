@@ -102,6 +102,13 @@ public class UserAccountService {
       if (userAccountRepository.existsByUserId(checkId)) {
         return new CreateResult(false, "同じユーザーIDが存在しています。");
       }
+
+      String phonenumber = form.getPhoneNumber();
+
+      if (!phonenumber.matches("[0-9]+")){
+        return new CreateResult(false, "電話番号は数字のみで入力してください。");
+      }
+
       UserAccount user = new UserAccount();
       user.setUserId(form.getUserId());
       user.setPassword(passwordEncoder.encode(form.getPassword()));
@@ -118,18 +125,16 @@ public class UserAccountService {
       profile.setWorkplaceId(form.getWorkplaceId());
       profile.setDepartmentId(form.getDepartmentId());
 
-      String phonenumber = form.getPhoneNumber();
-
       if (!phonenumber.matches("[0-9]+")){
-      return new CreateResult(false, "電話番号は数字のみで入力してください。");
-    }
+        return new CreateResult(false, "電話番号は数字のみで入力してください。");
+      }
       profile.setPhoneNumber(phonenumber);
 
       userProfileRepository.save(profile);
 
       // TODO: 削除予定 ログ
       logger.info("Successfully created a user.");
-      return new CreateResult(false, "アカウント作成に成功しました。");
+      return new CreateResult(true, "アカウント作成に成功しました。");
     }
 
   }
