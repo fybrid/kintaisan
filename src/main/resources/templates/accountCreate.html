@@ -86,12 +86,12 @@
                         </div>
 
                         <div class="field">
-                            <label for="password">新しいパスワード<span class="required-mark">*</span></label>
+                            <label for="password">パスワード<span class="required-mark">*</span></label>
                             <input type="password" name="password" id="password" placeholder="8文字以上" required>
                         </div>
 
                         <div class="field">
-                            <label for="check">新しいパスワード（確認用）<span class="required-mark">*</span></label>
+                            <label for="check">パスワード（確認用）<span class="required-mark">*</span></label>
                             <input type="password" name="check" id="check" placeholder="同じパスワードを入力" required>
                         </div>
 
@@ -100,6 +100,9 @@
                             <span class="switch-track" aria-hidden="true"></span>
                             <span class="toggle-text">管理者権限</span>
                         </label>
+
+                        <p id="update-error" aria-live="polite" style="color:#c00;" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
                     </div>
 
                         <div class="form-actions">

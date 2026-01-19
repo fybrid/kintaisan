@@ -46,12 +46,23 @@ public class AdminCreateController {
 	}
 
   @PostMapping("/create")
-  public String createUser(@ModelAttribute UserAccountCreateRequest form) {
-    if (Boolean.TRUE.equals(userAccountService.createUser(form))) {
+  public String createUser(@ModelAttribute UserAccountCreateRequest form, Model model, HttpSession session) {
+
+    UserAccountService.CreateResult result = userAccountService.createUser(form);
+
+    if (result.status() == true) {
       return "redirect:/admin/users/list";
     } else {
       // TODO: inputの内容を消さずにエラー表記させたい
-      return "accountCreate";
+      model.addAttribute("errorMessage", result.log());
+      // String userId = form.getUserId();
+      // session.setAttribute("userIdEdit",userId);
+      // session.setAttribute("name",form.getName());
+      // session.setAttribute("departmentId",form.getDepartmentId());
+      // session.setAttribute("workplaceId",form.getWorkplaceId());
+      // session.setAttribute("phoneNumber",form.getPhoneNumber());
+      // session.setAttribute("email",form.getEmail());
+      return showCreatePage(model, session);
     }
   }
 }

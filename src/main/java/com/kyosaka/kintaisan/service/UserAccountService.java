@@ -72,8 +72,10 @@ public class UserAccountService {
   }
 
 
+  public record CreateResult(Boolean status, String log) {}
+
   // アカウント作成の成功判定メソッド
-  public boolean createUser(UserAccountCreateRequest form){
+  public CreateResult createUser(UserAccountCreateRequest form){
 
 
     short roleId;
@@ -89,7 +91,7 @@ public class UserAccountService {
 
       // TODO: 例外エラーメッセージ
       logger.warn("Password confirmation mismatch");
-      return false;
+      return new CreateResult(false, "パスワードが一致していません");
 
     } else {
 
@@ -109,13 +111,19 @@ public class UserAccountService {
       profile.setEmail(form.getEmail());
       profile.setWorkplaceId(form.getWorkplaceId());
       profile.setDepartmentId(form.getDepartmentId());
-      profile.setPhoneNumber(form.getPhoneNumber());
+
+      String phonenumber = form.getPhoneNumber();
+
+      if (!phonenumber.matches("[0-9]+")){
+      return new CreateResult(false, "電話番号は数字のみで入力してください。");
+    }
+      profile.setPhoneNumber(phonenumber);
 
       userProfileRepository.save(profile);
 
       // TODO: 削除予定 ログ
       logger.info("Successfully created a user.");
-      return true;
+      return new CreateResult(false, "アカウント作成に成功しました。");
     }
 
   }
