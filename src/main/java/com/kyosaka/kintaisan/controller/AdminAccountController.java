@@ -33,6 +33,10 @@ public class AdminAccountController {
       sessionRoleId = ((Integer) roleIdObj).shortValue();
     }
 
+    if ((roleIdObj == null) || (sessionRoleId == 1) ){
+      return "login";
+    }
+
     model.addAttribute("accounts", userAccountService.getUser(sessionRoleId));
     return "accountList";
   }

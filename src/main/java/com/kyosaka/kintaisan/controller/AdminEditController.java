@@ -16,6 +16,8 @@ import com.kyosaka.kintaisan.entity.UserAccount;
 import com.kyosaka.kintaisan.entity.UserProfile;
 import com.kyosaka.kintaisan.service.UserAccountService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -28,10 +30,25 @@ public class AdminEditController {
   }
 
   @GetMapping("/edit")
-  public String showEditPage(@RequestParam String userId, Model model) {
+  public String showEditPage(@RequestParam String userId, Model model, HttpSession session) {
     if (userId == null || userId.isBlank()) {
       return "redirect:/admin/users/list";
     }
+    Object roleIdObj = session.getAttribute("roleId");
+
+    Short sessionRoleId = null;
+
+    // Intで入っていてもshortに直す処理
+    if (roleIdObj instanceof Short) {
+      sessionRoleId = (Short) roleIdObj;
+    } else if (roleIdObj instanceof Integer) {
+      sessionRoleId = ((Integer) roleIdObj).shortValue();
+    }
+
+    if ((roleIdObj == null) || (sessionRoleId == 1) ){
+      return "login";
+    }
+
 
     Optional<UserAccount> accountOpt = userAccountService.findUserAccount(userId);
     Optional<UserProfile> profileOpt = userAccountService.findUserProfile(userId);
