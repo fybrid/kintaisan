@@ -21,9 +21,9 @@
                 <span class="sidebar-sub">kintaisan</span>
             </div>
             <nav class="sidebar-nav">
-                <a class="nav-item" href="/">ホーム</a>
-                <a class="nav-item" href="/attendance_input">勤怠入力</a>
-                <a class="nav-item" href="/attendance_status">勤怠一覧</a>
+                <a class="nav-item" href="/attendance_input">勤怠入力ページ</a>
+                <!-- <a class="nav-item" href="/attendance_input">勤怠入力</a> -->
+                <!-- <a class="nav-item" href="/attendance_status">勤怠一覧</a> -->
                 <a class="nav-item active" href="/admin/users/list">アカウント一覧</a>
                 <a class="nav-item" href="/admin/create">アカウント作成</a>
             </nav>
@@ -31,7 +31,7 @@
         <div class="admin-content">
             <div class="admin-content-inner">
                 <div class="subheader">
-                    <button class="back"><a href="#">戻る</a></button>
+                    <button class="back" onclick="history.back()">戻る</button>
                     <div class="wrap">
                         <label for="accountCreate">ユーザー追加</label>
                         <a href="/admin/create"><button id="accountCreate">+</button></a>

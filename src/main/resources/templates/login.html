@@ -17,9 +17,9 @@
     <form id="login-form" th:action="@{/api/signin}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <p>
-          <input type="text" id="username" name="username" placeholder="ユーザーID/ユーザー名" required>
+          <input type="text" id="username" name="username" placeholder="ID/名" required>
         </p>
-    
+
         <p>
           <input type="password" id="password" name="password" placeholder="パスワード" required>
         </p>
@@ -31,7 +31,7 @@
           th:if="${errorMessage}"
           th:text="${errorMessage}">
         </p>
-    
+
         <p>
           <input type="submit" value="ログイン">
         </p>

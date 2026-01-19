@@ -14,10 +14,13 @@
   <!-- メニュー -->
   <header class="top-bar">
     <nav class="top-nav">
+      <a href="/admin/users/list" th:if="${session.roleId != 1}">管理者ページ</a>
       <a href="attendance_input">勤怠入力</a>
       <a href="attendance_status">勤怠状況</a>
       <a href="tellandplace">連絡先・勤務地編集</a>
-      <a href="login" class="logout">ログアウト</a>
+      <form th:action="@{/api/signout}" method="post" th:if="${session.userId != null}">
+        <input class="logout" type="submit" value="ログアウト">
+      </form>
     </nav>
   </header>
 
